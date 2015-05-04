@@ -1,6 +1,7 @@
 package utiltest;
 
-import utilsystem.UtilHttpObject;
+import com.nitian.util.http.UtilHttpObject;
+
 import model.User;
 
 public class UtilHttpObjectTest {

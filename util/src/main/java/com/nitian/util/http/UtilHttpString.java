@@ -1,4 +1,4 @@
-package utilsystem;
+package com.nitian.util.http;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

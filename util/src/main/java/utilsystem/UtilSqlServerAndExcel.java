@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nitian.util.string.UtilString;
+
 import model.Franchisee;
 import jxl.Cell;
 import jxl.Sheet;

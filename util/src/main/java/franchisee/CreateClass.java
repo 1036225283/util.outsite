@@ -4,8 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+import com.nitian.util.string.UtilString;
+
 import utilsystem.UtilFileString;
-import utilsystem.UtilString;
 
 public class CreateClass {
 

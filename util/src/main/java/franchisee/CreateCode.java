@@ -4,9 +4,10 @@ import java.rmi.Naming;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nitian.util.string.UtilString;
+
 import model.Franchisee;
 import utilsystem.UtilFileString;
-import utilsystem.UtilString;
 import cache.service.keyobject.KeyObjectService;
 
 @SuppressWarnings("unchecked")

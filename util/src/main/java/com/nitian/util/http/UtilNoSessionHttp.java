@@ -1,17 +1,14 @@
-package utilsystem;
+package com.nitian.util.http;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class UtilHttpObject {
+public class UtilNoSessionHttp {
 
-	private String sessionId = null;
-
-	public Object POST(String Url, Object value) throws Exception {
+	public String POST(String Url, String value) throws Exception {
 		/**
 		 * 新建连接，打开连接
 		 * */
@@ -25,7 +22,7 @@ public class UtilHttpObject {
 		/**
 		 * 设置POST方式
 		 */
-		connection.setRequestMethod("POST");
+		connection.setRequestMethod("GET");
 		/**
 		 * 设置是否可以使用缓存
 		 */
@@ -35,46 +32,26 @@ public class UtilHttpObject {
 		 */
 		connection.setInstanceFollowRedirects(true);
 		connection.setRequestProperty("Content-Type",
-				"application/x-java-serialized-object");
+				"application/x-www-form-urlencoded");
 		/**
 		 * 设置块大小
 		 * */
 		// connection.setChunkedStreamingMode(50);
 		// System.out.println(connection.getRequestProperties());
-		if (sessionId != null) {
-			connection.setRequestProperty("Cookie", sessionId);
-			System.out.println("http--sessionId" + sessionId);
-		}
 		connection.connect();
 		/**
 		 * 给post请求设值
 		 */
-		if (value != null) {
+		if (value != null && !value.trim().equals("")) {
+			byte[] bypes = value.getBytes();
 			OutputStream outputStream = connection.getOutputStream();// 输入参数
-//			ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-//					outputStream);
-//			objectOutputStream.writeObject(value);
-//			objectOutputStream.flush();
-//			objectOutputStream.close();
-			outputStream.write(value.toString().getBytes());
+			outputStream.write(bypes);
+			outputStream.flush();
+			outputStream.close();
 		}
 
-		/**
-		 * 获取和设置sessionId
-		 */
-		if (sessionId == null) {
-			// String setCookie = connection.getHeaderField("Set-Cookie");
-			// sessionId = setCookie.split(";")[0];
-		}
 		// System.out.println(connection.getHeaderFields());
-		// /**
-		// * 获取服务器对象流
-		// */
-		// ObjectInputStream objectInputStream = new ObjectInputStream(
-		// connection.getInputStream());
-		// Object result = objectInputStream.readObject();
-		// objectInputStream.close();
-		// return result;
+
 		/**
 		 * 输入流
 		 */
@@ -89,15 +66,6 @@ public class UtilHttpObject {
 		return sb.toString();
 	}
 
-	/**
-	 * *************************************************************************
-	 * *****************************
-	 * 
-	 * @param Url
-	 * @param value
-	 * @return
-	 * @throws Exception
-	 */
 	public String GET(String Url, String value) throws Exception {
 		/**
 		 * 新建连接，打开连接
@@ -128,9 +96,6 @@ public class UtilHttpObject {
 		 * */
 		// connection.setChunkedStreamingMode(50);
 		// System.out.println(connection.getRequestProperties());
-		if (sessionId != null) {
-			connection.setRequestProperty("Cookie", sessionId);
-		}
 		connection.connect();
 		/**
 		 * 给post请求设值
@@ -143,16 +108,6 @@ public class UtilHttpObject {
 			outputStream.close();
 		}
 
-		/**
-		 * 获取和设置sessionId
-		 */
-		String setCookie = connection.getHeaderField("Set-Cookie");
-		System.out.println(setCookie);
-		if (sessionId == null) {
-			// String setCookie = connection.getHeaderField("Set-Cookie");
-			// System.out.println();
-			// sessionId = setCookie.split(";")[0];
-		}
 		// System.out.println(connection.getHeaderFields());
 
 		/**
@@ -167,14 +122,6 @@ public class UtilHttpObject {
 		}
 		reader.close();
 		return sb.toString();
-	}
-
-	public String getSessionId() {
-		return sessionId;
-	}
-
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
 	}
 
 }

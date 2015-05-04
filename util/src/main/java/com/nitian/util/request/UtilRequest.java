@@ -1,30 +1,40 @@
-package utilsystem;
+package com.nitian.util.request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class UtilRequest {
 
 	/**
-	 * 读取request.getReader()的值
-	 * @param reader
+	 * 获取字符串
+	 * 
 	 * @return
 	 */
-	public static String getReader(BufferedReader reader) {
+	public static String getString(HttpServletRequest request) {
 		StringBuilder sb = new StringBuilder();
 		try {
-			BufferedReader br = new BufferedReader(reader);
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					request.getInputStream(), "utf-8"));
 			String line = null;
 			while ((line = br.readLine()) != null) {
 				sb.append(line);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return sb.toString();
 	}
-	
-	public static String getString(BufferedReader reader) {
+
+	/**
+	 * 读取request.getReader()的值
+	 * 
+	 * @param reader
+	 * @return
+	 */
+	public static String getReader(BufferedReader reader) {
 		StringBuilder sb = new StringBuilder();
 		try {
 			BufferedReader br = new BufferedReader(reader);

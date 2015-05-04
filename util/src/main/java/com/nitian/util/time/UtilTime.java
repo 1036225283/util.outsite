@@ -1,4 +1,4 @@
-package utilsystem;
+package com.nitian.util.time;
 
 import java.text.DateFormat;
 import java.text.ParseException;
