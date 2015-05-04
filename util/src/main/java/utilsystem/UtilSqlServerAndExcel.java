@@ -2,7 +2,6 @@ package utilsystem;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -13,15 +12,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nitian.util.string.UtilString;
-
-import model.Franchisee;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
+import model.Franchisee;
+
+import com.nitian.util.file.UtilFile;
+import com.nitian.util.string.UtilString;
 
 public class UtilSqlServerAndExcel {
 
@@ -411,7 +411,7 @@ public class UtilSqlServerAndExcel {
 			}
 		}
 		// 输出文件
-		UtilFileString.stringToFile(sb.toString(), path + tableName + ".java");
+		UtilFile.stringToFile(sb.toString(), path + tableName + ".java");
 
 		// System.out.println(sb.toString());
 	}
@@ -426,10 +426,10 @@ public class UtilSqlServerAndExcel {
 				if (franchisee.getFormType().equals("lookup")) {
 					String className = UtilString.letterUpper(tableName)
 							+ franchisee.getFieldName() + "LookUpController";
-					String template = UtilFileString
+					String template = UtilFile
 							.fileToString(lookupController);
 					template = template.replace("<ClassName>", className);
-					UtilFileString.stringToFile(template, path + className
+					UtilFile.stringToFile(template, path + className
 							+ ".java");
 				}
 			}

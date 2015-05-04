@@ -1,38 +1,64 @@
 package com.nitian.util.time;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UtilTime {
 
+	public static long beforeTime = 30l * 1000 * 60;
+
 	/**
-	 * 将String 转换为Date
+	 * 当天预约,提前30分钟
 	 * 
 	 * @return
 	 */
-	public static Date StringToDate(String time) {
+	public static boolean judgeTime(int currentHour) {
+		TimeInteger timeInteger = new TimeInteger(new Date());
+		timeInteger.setHour(currentHour + 1);
+		timeInteger.setMinute(0);
+		timeInteger.setSecond(0);
+		Long judgeTime = timeInteger.integerToTime().getTime();
+		Long currentTime = new Date().getTime();
+		if ((judgeTime - currentTime) >= beforeTime) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * 字符串转换为时间yyyy-MM-dd HH:mm:ss
+	 * 
+	 * @param time
+	 * @return
+	 */
+	public static Date stringToDate(String time) {
 		Date date = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
-			date = sdf.parse(time);
+			date = formatter.parse(time);
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return date;
 	}
-
+	
 	/**
-	 * 将Date转换为String
-	 * 
+	 * 将字符串年月日转换为时间
+	 * @param time
 	 * @return
 	 */
-	public static String DateToString(Date date) {
-		return DateFormat.getDateInstance().format(date);
-	}
-
-	public static void main(String[] args) {
-		System.out.println(StringToDate("2013-2-3"));
+	public static Date stringYMDToDate(String time) {
+		Date date = null;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			date = formatter.parse(time);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return date;
 	}
 }

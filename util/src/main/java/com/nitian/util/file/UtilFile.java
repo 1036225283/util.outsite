@@ -1,4 +1,4 @@
-package utilsystem;
+package com.nitian.util.file;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,17 +6,45 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * 文件和字符串互转
- * 
- * @author xiaoyang
- * 
- */
-public class UtilFileString {
+public class UtilFile {
 
 	/**
-	 * 读取文件
+	 * 获取某一目录下所有文件名
+	 * 
+	 * @param path
+	 * @return List
+	 */
+	public final static List<String> getAllFileName(String path) {
+		File file = new File(path);
+		List<String> list = new ArrayList<String>();
+		getAllFileName(file, list);
+		return list;
+	}
+
+	/**
+	 * 迭代扫描文件夹
+	 * 
+	 * @param rootFile
+	 * @param fileNameList
+	 */
+	private final static void getAllFileName(File rootFile,
+			List<String> fileNameList) {
+		File[] files = rootFile.listFiles();
+		for (int i = 0; i < files.length; i++) {
+			File file = files[i];
+			if (file.isFile()) {
+				fileNameList.add(file.getAbsolutePath());
+			} else {
+				getAllFileName(file, fileNameList);
+			}
+		}
+	}
+
+	/**
+	 * 读取文件为字符串
 	 * 
 	 * @param fileName
 	 * @return
@@ -42,7 +70,7 @@ public class UtilFileString {
 	}
 
 	/**
-	 * 写入文件
+	 * 将字符串写入文件
 	 * 
 	 * @param value
 	 * @param fileName
@@ -69,5 +97,4 @@ public class UtilFileString {
 		}
 
 	}
-
 }

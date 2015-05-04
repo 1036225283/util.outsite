@@ -4,11 +4,11 @@ import java.rmi.Naming;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nitian.util.string.UtilString;
-
 import model.Franchisee;
-import utilsystem.UtilFileString;
 import cache.service.keyobject.KeyObjectService;
+
+import com.nitian.util.file.UtilFile;
+import com.nitian.util.string.UtilString;
 
 @SuppressWarnings("unchecked")
 public class CreateCode {
@@ -446,10 +446,10 @@ public class CreateCode {
 				if (franchisee.getFormType().equals("lookup")) {
 					String className = UtilString.letterUpper(ClassName)
 							+ franchisee.getFieldName() + "LookUpController";
-					String template = UtilFileString
+					String template = UtilFile
 							.fileToString("C:\\Users\\1036225283\\Desktop\\swing\\template\\franchisee\\lookUpController.java");
 					template = template.replace("<ClassName>", className);
-					UtilFileString.stringToFile(template,
+					UtilFile.stringToFile(template,
 							"C:\\Users\\1036225283\\Desktop\\config\\"
 									+ className + ".java");
 				}

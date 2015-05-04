@@ -22,7 +22,7 @@ public class UtilNoSessionHttp {
 		/**
 		 * 设置POST方式
 		 */
-		connection.setRequestMethod("GET");
+		connection.setRequestMethod("POST");
 		/**
 		 * 设置是否可以使用缓存
 		 */
@@ -33,6 +33,7 @@ public class UtilNoSessionHttp {
 		connection.setInstanceFollowRedirects(true);
 		connection.setRequestProperty("Content-Type",
 				"application/x-www-form-urlencoded");
+		connection.setRequestProperty("Accept-Charset", "UTF-8");
 		/**
 		 * 设置块大小
 		 * */
@@ -43,7 +44,7 @@ public class UtilNoSessionHttp {
 		 * 给post请求设值
 		 */
 		if (value != null && !value.trim().equals("")) {
-			byte[] bypes = value.getBytes();
+			byte[] bypes = value.getBytes("utf-8");
 			OutputStream outputStream = connection.getOutputStream();// 输入参数
 			outputStream.write(bypes);
 			outputStream.flush();
@@ -91,6 +92,7 @@ public class UtilNoSessionHttp {
 		connection.setInstanceFollowRedirects(true);
 		connection.setRequestProperty("Content-Type",
 				"application/x-www-form-urlencoded");
+		connection.setRequestProperty("Accept-Charset", "UTF-8");
 		/**
 		 * 设置块大小
 		 * */

@@ -2,11 +2,9 @@ package franchisee;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
+import com.nitian.util.file.UtilFile;
 import com.nitian.util.string.UtilString;
-
-import utilsystem.UtilFileString;
 
 public class CreateClass {
 
@@ -161,7 +159,7 @@ public class CreateClass {
 		if (!mapperFile.exists()) {
 			throw new RuntimeException("第一步读取Mapper文件就出错了");
 		}
-		mapperContent = UtilFileString.fileToString(mapperFile
+		mapperContent = UtilFile.fileToString(mapperFile
 				.getAbsolutePath());
 		String getAll = "List<" + ClassName + "> getAll();";
 		String getListByMap = "List<" + ClassName
@@ -182,7 +180,7 @@ public class CreateClass {
 			mapperContent = mapperContent + "}";
 		}
 		mapperContent = mapperContent.replace("<ClassName>", ClassName);
-		UtilFileString
+		UtilFile
 				.stringToFile(mapperContent, mapperFile.getAbsolutePath());
 		mapperContent = UtilString.substring(mapperContent, "{", "}");
 		System.out.println("输出截取到的Mapper文件：");
@@ -202,12 +200,12 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		serviceTemplateContent = UtilFileString.fileToString(serviceTemplate);
+		serviceTemplateContent = UtilFile.fileToString(serviceTemplate);
 		serviceTemplateContent = serviceTemplateContent.replaceAll(
 				"<ClassName>", ClassName);
 		serviceTemplateContent = serviceTemplateContent.replace("<Content>",
 				mapperContent);
-		UtilFileString.stringToFile(serviceTemplateContent,
+		UtilFile.stringToFile(serviceTemplateContent,
 				serviceFile.getAbsolutePath());
 		System.out.println("输出生成的Service文件：");
 		System.out.println(serviceContent);
@@ -227,7 +225,7 @@ public class CreateClass {
 			}
 		}
 		// 读取项目的Service.java文件,而不是模板文件
-		serviceContent = UtilFileString.fileToString(serviceFile
+		serviceContent = UtilFile.fileToString(serviceFile
 				.getAbsolutePath());
 		System.out.println(serviceContent);
 		serviceContent = UtilString.substring(serviceContent, "{", "}");
@@ -244,7 +242,7 @@ public class CreateClass {
 		String className = UtilString.letterLower(ClassName);
 		stringParamType = strings2[0];
 		stringParamName = strings2[1];
-		serviceImplTemplateContent = UtilFileString
+		serviceImplTemplateContent = UtilFile
 				.fileToString(serviceImplTemplate);
 		serviceImplTemplateContent = serviceImplTemplateContent.replaceAll(
 				"<ClassName>", ClassName);
@@ -254,7 +252,7 @@ public class CreateClass {
 				"<paramType>", stringParamType);
 		serviceImplTemplateContent = serviceImplTemplateContent.replace(
 				"<param>", stringParamName);
-		UtilFileString.stringToFile(serviceImplTemplateContent,
+		UtilFile.stringToFile(serviceImplTemplateContent,
 				serviceImplFile.getAbsolutePath());
 		System.out.println("输出生成的ServiceImpl文件：");
 		System.out.println(serviceImplTemplateContent);
@@ -276,14 +274,14 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		modelContent = UtilFileString.fileToString(modelFile.getAbsolutePath());
+		modelContent = UtilFile.fileToString(modelFile.getAbsolutePath());
 		modelContent = UtilString.substring(modelContent, "{", "}");
-		voTemplateContent = UtilFileString.fileToString(voTemplate);
+		voTemplateContent = UtilFile.fileToString(voTemplate);
 		voTemplateContent = voTemplateContent.replaceAll("<ClassName>",
 				ClassName);
 		voTemplateContent = voTemplateContent.replaceAll("<Content>",
 				modelContent);
-		UtilFileString
+		UtilFile
 				.stringToFile(voTemplateContent, voFile.getAbsolutePath());
 		System.out.println("输出生成的Vo文件：");
 		System.out.println(voTemplateContent);
@@ -302,14 +300,14 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		controllerTemplateContent = UtilFileString
+		controllerTemplateContent = UtilFile
 				.fileToString(controllerTemplate);
 		String className = UtilString.letterLower(ClassName);
 		controllerTemplateContent = controllerTemplateContent.replace(
 				"<ClassName>", ClassName);
 		controllerTemplateContent = controllerTemplateContent.replace(
 				"<className>", className);
-		UtilFileString.stringToFile(controllerTemplateContent,
+		UtilFile.stringToFile(controllerTemplateContent,
 				controllerFile.getAbsolutePath());
 		System.out.println("输出生成的Controller文件：");
 		System.out.println(controllerTemplateContent);
@@ -328,11 +326,11 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String gridFrameTemplateContent = UtilFileString
+		String gridFrameTemplateContent = UtilFile
 				.fileToString(gridFrameTemplate);
 		gridFrameTemplateContent = gridFrameTemplateContent.replace(
 				"<ClassName>", ClassName);
-		UtilFileString.stringToFile(gridFrameTemplateContent,
+		UtilFile.stringToFile(gridFrameTemplateContent,
 				gridFrameFile.getAbsolutePath());
 
 	}
@@ -350,14 +348,14 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String gridFrameControllerTemplateContent = UtilFileString
+		String gridFrameControllerTemplateContent = UtilFile
 				.fileToString(gridFrameControllerTemplate);
 		String classname = ClassName.toLowerCase();
 		gridFrameControllerTemplateContent = gridFrameControllerTemplateContent
 				.replace("<ClassName>", ClassName);
 		gridFrameControllerTemplateContent = gridFrameControllerTemplateContent
 				.replace("<classname>", classname);
-		UtilFileString.stringToFile(gridFrameControllerTemplateContent,
+		UtilFile.stringToFile(gridFrameControllerTemplateContent,
 				gridFrameControllerFile.getAbsolutePath());
 
 	}
@@ -375,11 +373,11 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String detailFrameTemplateContent = UtilFileString
+		String detailFrameTemplateContent = UtilFile
 				.fileToString(detailFrameTemplate);
 		detailFrameTemplateContent = detailFrameTemplateContent.replace(
 				"<ClassName>", ClassName);
-		UtilFileString.stringToFile(detailFrameTemplateContent,
+		UtilFile.stringToFile(detailFrameTemplateContent,
 				detailFrameFile.getAbsolutePath());
 	}
 
@@ -396,14 +394,14 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String detailFrameControllerTemplateContent = UtilFileString
+		String detailFrameControllerTemplateContent = UtilFile
 				.fileToString(detailFrameControllerTemplate);
 		String classname = ClassName.toLowerCase();
 		detailFrameControllerTemplateContent = detailFrameControllerTemplateContent
 				.replace("<ClassName>", ClassName);
 		detailFrameControllerTemplateContent = detailFrameControllerTemplateContent
 				.replace("<classname>", classname);
-		UtilFileString.stringToFile(detailFrameControllerTemplateContent,
+		UtilFile.stringToFile(detailFrameControllerTemplateContent,
 				detailFrameControllerFile.getAbsolutePath());
 	}
 
@@ -420,14 +418,14 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String gridJPanelTemplateContent = UtilFileString
+		String gridJPanelTemplateContent = UtilFile
 				.fileToString(gridJPanelTemplate);
 		String classname = ClassName.toLowerCase();
 		gridJPanelTemplateContent = gridJPanelTemplateContent.replace(
 				"<ClassName>", ClassName);
 		gridJPanelTemplateContent = gridJPanelTemplateContent.replace(
 				"<className>", classname);
-		UtilFileString.stringToFile(gridJPanelTemplateContent,
+		UtilFile.stringToFile(gridJPanelTemplateContent,
 				gridJPanelFile.getAbsolutePath());
 	}
 
@@ -444,14 +442,14 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String girdJPanelControllerTemplateContent = UtilFileString
+		String girdJPanelControllerTemplateContent = UtilFile
 				.fileToString(gridJPanelControllerTemplate);
 		girdJPanelControllerTemplateContent = girdJPanelControllerTemplateContent
 				.replace("<ClassName>", ClassName);
 		String classname = ClassName.toLowerCase();
 		girdJPanelControllerTemplateContent = girdJPanelControllerTemplateContent
 				.replace("<className>", classname);
-		UtilFileString.stringToFile(girdJPanelControllerTemplateContent,
+		UtilFile.stringToFile(girdJPanelControllerTemplateContent,
 				gridJPanelControllerFile.getAbsolutePath());
 	}
 
@@ -468,11 +466,11 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String detailJPanelTemplateContent = UtilFileString
+		String detailJPanelTemplateContent = UtilFile
 				.fileToString(detailJPanelTemplate);
 		detailJPanelTemplateContent = detailJPanelTemplateContent.replace(
 				"<ClassName>", ClassName);
-		UtilFileString.stringToFile(detailJPanelTemplateContent,
+		UtilFile.stringToFile(detailJPanelTemplateContent,
 				detailJPanelFile.getAbsolutePath());
 	}
 
@@ -489,11 +487,11 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String detailJPanelControllerTemplateContent = UtilFileString
+		String detailJPanelControllerTemplateContent = UtilFile
 				.fileToString(detailJPanelControllerTemplate);
 		detailJPanelControllerTemplateContent = detailJPanelControllerTemplateContent
 				.replace("<ClassName>", ClassName);
-		UtilFileString.stringToFile(detailJPanelControllerTemplateContent,
+		UtilFile.stringToFile(detailJPanelControllerTemplateContent,
 				detailJPanelControllerFile.getAbsolutePath());
 	}
 
@@ -508,11 +506,11 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String formJPanelTemplateContent = UtilFileString
+		String formJPanelTemplateContent = UtilFile
 				.fileToString(formTemplate);
 		formJPanelTemplateContent = formJPanelTemplateContent.replace(
 				"<ClassName>", ClassName);
-		UtilFileString.stringToFile(formJPanelTemplateContent,
+		UtilFile.stringToFile(formJPanelTemplateContent,
 				formJPanelFile.getAbsolutePath());
 	}
 
@@ -527,11 +525,11 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String noSelectControllerFrameTemplateContent = UtilFileString
+		String noSelectControllerFrameTemplateContent = UtilFile
 				.fileToString(noSelectControllerFrameTemplate);
 		noSelectControllerFrameTemplateContent = noSelectControllerFrameTemplateContent
 				.replace("<ClassName>", ClassName);
-		UtilFileString.stringToFile(noSelectControllerFrameTemplateContent,
+		UtilFile.stringToFile(noSelectControllerFrameTemplateContent,
 				frameFile.getAbsolutePath());
 	}
 
@@ -546,11 +544,11 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String frameTemplateContent = UtilFileString
+		String frameTemplateContent = UtilFile
 				.fileToString(frameTemplate);
 		frameTemplateContent = frameTemplateContent.replace("<ClassName>",
 				ClassName);
-		UtilFileString.stringToFile(frameTemplateContent,
+		UtilFile.stringToFile(frameTemplateContent,
 				frameFile.getAbsolutePath());
 	}
 
