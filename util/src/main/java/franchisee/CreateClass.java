@@ -9,15 +9,15 @@ import com.nitian.util.string.UtilString;
 public class CreateClass {
 
 	// 需要操作的类名，需要自己设定
-	private String ClassName = "WareKey";
+	private String ClassName = "WeixinKey";
 
 	public static void main(String[] args) {
 
 		CreateClass fuck = new CreateClass();
 		// 创建Service ServiceImpl Vo Controller ,修改Mapper
-//		fuck.readMapperFile();
-//		fuck.createServiceFile();
-//		fuck.createServiceImplFile();
+		fuck.readMapperFile();
+		fuck.createServiceFile();
+		fuck.createServiceImplFile();
 //		fuck.createControllerFile();
 //		fuck.createVoFile();
 		// 创建单独的gridFrame gridFrameController detailFrame detailFrameController
@@ -40,15 +40,16 @@ public class CreateClass {
 
 	// 模板根目录
 	private String templatePath = "C:\\Users\\1036225283\\Desktop\\swing\\template\\franchisee\\";
-
+	private String rootPath = "C:\\Users\\1036225283\\Desktop\\franchisee\\";
+	
 	// 生成文件的输出目录
-	private String voOutPath = "C:\\Users\\1036225283\\Desktop\\franchisee\\common\\src\\main\\java\\com\\simonizchina\\franchisee\\vo\\";
-	private String controllerOutPath = "C:\\Users\\1036225283\\Desktop\\franchisee\\server\\src\\main\\java\\com\\simonizchina\\franchisee\\server\\";
-	private String clientOutPath = "C:\\Users\\1036225283\\Desktop\\franchisee\\client\\src\\main\\java\\com\\simonizchina\\franchisee\\client\\";
-	private String serviceOutPath = "C:\\Users\\1036225283\\Desktop\\franchisee\\common\\src\\main\\java\\com\\simonizchina\\franchisee\\service\\";
-	private String modelReadPath = "C:\\Users\\1036225283\\Desktop\\franchisee\\common\\src\\main\\java\\com\\simonizchina\\franchisee\\model\\";
-	private String serviceImplOutPath = "C:\\Users\\1036225283\\Desktop\\franchisee\\service\\src\\main\\java\\com\\simonizchina\\franchisee\\service\\impl\\";
-	private String mapperReadPath = "C:\\Users\\1036225283\\Desktop\\franchisee\\service\\src\\main\\java\\com\\simonizchina\\franchisee\\mapper\\";
+	private String voOutPath = rootPath+"franchisee\\common\\src\\main\\java\\com\\simonizchina\\franchisee\\vo\\";
+	private String controllerOutPath = rootPath+"franchisee\\server\\src\\main\\java\\com\\simonizchina\\franchisee\\server\\";
+	private String clientOutPath = rootPath+"franchisee\\client\\src\\main\\java\\com\\simonizchina\\franchisee\\client\\";
+	private String serviceOutPath = rootPath+"franchisee\\common\\src\\main\\java\\com\\simonizchina\\franchisee\\service\\";
+	private String modelReadPath = rootPath+"franchisee\\common\\src\\main\\java\\com\\simonizchina\\franchisee\\model\\";
+	private String serviceImplOutPath = rootPath+"franchisee\\service\\src\\main\\java\\com\\simonizchina\\franchisee\\service\\impl\\";
+	private String mapperReadPath = rootPath+"franchisee\\service\\src\\main\\java\\com\\simonizchina\\franchisee\\mapper\\";
 
 	// 模板文件
 	private String serviceTemplate = templatePath + "Service.java";

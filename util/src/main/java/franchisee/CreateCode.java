@@ -18,10 +18,10 @@ public class CreateCode {
 	private String ClassName;
 
 	public static void main(String[] args) {
-		CreateCode code = new CreateCode("WareKey");
-		 System.out.println(code.createGridInitCode());
+		CreateCode code = new CreateCode("WareObl");
+//		 System.out.println(code.createGridInitCode());
 //		 System.out.println(code.createResourceCode());
-//		System.out.println(code.createFormInitCode());
+		System.out.println(code.createFormInitCode());
 //		 System.out.println(code.createSelectFormInitCode());
 //		 code.createLookUpController();
 		// System.out.println(code.createLookUpControllerResourceCode());
