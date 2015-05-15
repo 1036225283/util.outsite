@@ -18,7 +18,7 @@ public class CreateCode {
 	private String ClassName;
 
 	public static void main(String[] args) {
-		CreateCode code = new CreateCode("WareObl");
+		CreateCode code = new CreateCode("Provide");
 //		 System.out.println(code.createGridInitCode());
 //		 System.out.println(code.createResourceCode());
 		System.out.println(code.createFormInitCode());

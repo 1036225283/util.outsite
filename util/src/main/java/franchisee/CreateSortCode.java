@@ -12,7 +12,7 @@ public class CreateSortCode {
 	private List<Franchisee> list = new ArrayList<Franchisee>();
 
 	public static void main(String[] args) {
-		CreateSortCode createSortCode = new CreateSortCode("OutShopCount");
+		CreateSortCode createSortCode = new CreateSortCode("WareShopCount");
 		createSortCode.createSortSqlCode();
 		createSortCode.createClientCode();
 		createSortCode.createColumnSortCode();
