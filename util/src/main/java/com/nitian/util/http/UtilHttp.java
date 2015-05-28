@@ -16,13 +16,56 @@ import java.net.URL;
 public class UtilHttp {
 
 	/**
+	 * 没有session的post
+	 * 
+	 * @param Url
+	 * @param value
+	 * @return
+	 */
+	public static String noSessionPost(String Url, String value) {
+		StringBuffer sb = new StringBuffer();
+		try {
+			URL url = new URL(Url);
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setRequestMethod("POST");
+			connection.setUseCaches(false);
+			connection.setInstanceFollowRedirects(true);
+			connection.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded");
+			connection.setRequestProperty("Accept-Charset", "UTF-8");
+			connection.connect();
+			if (value != null && !value.trim().equals("")) {
+				byte[] bypes = value.getBytes("utf-8");
+				OutputStream outputStream = connection.getOutputStream();// 输入参数
+				outputStream.write(bypes);
+				outputStream.flush();
+				outputStream.close();
+			}
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				sb.append(new String(line.getBytes(), "UTF-8"));
+			}
+			reader.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return sb.toString();
+	}
+
+	/**
 	 * 上传
 	 * 
 	 * @param url
 	 * @param filePath
 	 * @return
 	 */
-	public static String upLoad(String url, String filePath) {
+	public static String upLoad(String url, String filePath, String value) {
 
 		String result = null;
 		BufferedReader reader = null;
@@ -74,6 +117,15 @@ public class UtilHttp {
 			OutputStream out = new DataOutputStream(con.getOutputStream());
 			// 输出表头
 			out.write(head);
+
+			if (value != null) {
+				StringBuffer sb2 = new StringBuffer();
+				sb2.append("\r\n").append("--").append(BOUNDARY).append("\r\n");
+				sb2.append("Content-Disposition: form-data; name=\"" + "duck"
+						+ "\"\r\n\r\n");
+				sb2.append(value);
+				out.write(sb2.toString().getBytes());
+			}
 
 			// 文件正文部分
 			// 把文件已流文件的方式 推入到url中

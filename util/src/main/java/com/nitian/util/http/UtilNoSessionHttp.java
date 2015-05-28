@@ -120,7 +120,7 @@ public class UtilNoSessionHttp {
 		String line;
 		StringBuffer sb = new StringBuffer();
 		while ((line = reader.readLine()) != null) {
-			sb.append(line);
+			sb.append(new String(line.getBytes(), "UTF-8"));
 		}
 		reader.close();
 		return sb.toString();
