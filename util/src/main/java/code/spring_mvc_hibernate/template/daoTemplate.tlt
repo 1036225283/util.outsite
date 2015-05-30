@@ -10,7 +10,7 @@ import com.simonizchina.franchisee.base.home.BaseDao;
 import com.simonizchina.franchisee.test.home.entity.Test;
 
 @Repository
-public class #EntityName#Dao extends BaseDaoImpl<#EntityName#, Long> {
+public class #EntityName#Dao extends BaseDao<#EntityName#, Long> {
 
 	public List<#EntityName#> getPage(Integer start, Integer limit,
 			Map<String, Object> map) {

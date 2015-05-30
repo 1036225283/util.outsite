@@ -11,7 +11,7 @@ import com.simonizchina.franchisee.test.home.dao.TestDao;
 import com.simonizchina.franchisee.test.home.entity.Test;
 
 @Service
-public class #EntityName#Service extends BaseServiceImpl {
+public class #EntityName#Service extends BaseService {
 
 	@Autowired
 	private #EntityName#Dao #entityName#Dao;
