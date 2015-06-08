@@ -9,6 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 public class UtilRequest {
 
 	/**
+	 * 获取访问url
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public static String getUrl(HttpServletRequest request) {
+		String url = request.getScheme() + "://" + request.getServerName()
+				+ request.getContextPath() + request.getServletPath();
+		return url;
+	}
+
+	/**
 	 * 获取字符串
 	 * 
 	 * @return

@@ -50,6 +50,7 @@ public class UtilFile {
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("resource")
 	public static String fileToString(String fileName) {
 		File file = new File(fileName);
 		FileInputStream fileInputStream;

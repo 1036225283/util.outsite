@@ -13,7 +13,51 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import net.sf.json.JSONObject;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.multipart.FilePart;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
+import org.apache.commons.httpclient.methods.multipart.Part;
+
 public class UtilHttp {
+
+	/**
+	 * get
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public static String get(String url) {
+		StringBuffer sb = new StringBuffer();
+		try {
+			URL urlObject = new URL(url);
+			HttpURLConnection connection = (HttpURLConnection) urlObject
+					.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setRequestMethod("GET");
+			connection.setUseCaches(false);
+			connection.setInstanceFollowRedirects(true);
+			connection.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded");
+			connection.setRequestProperty("Accept-Charset", "UTF-8");
+			connection.connect();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				sb.append(new String(line.getBytes(), "UTF-8"));
+			}
+			reader.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return sb.toString();
+	}
 
 	/**
 	 * 没有session的post
@@ -56,6 +100,54 @@ public class UtilHttp {
 		}
 
 		return sb.toString();
+	}
+
+	/**
+	 * 上传图片
+	 * 
+	 * @param url
+	 * @param accessToken
+	 * @param filePath
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	public static String uploadImage(String url, String filePath, String data) {
+		HttpClient client = new HttpClient();
+		PostMethod post = new PostMethod(url);
+		post.setRequestHeader(
+				"User-Agent",
+				"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:30.0) Gecko/20100101 Firefox/30.0");
+		post.setRequestHeader("Host", "file.api.weixin.qq.com");
+		post.setRequestHeader("Connection", "Keep-Alive");
+		post.setRequestHeader("Cache-Control", "no-cache");
+		String result = null;
+		try {
+			if (filePath != null) {
+				File file = new File(filePath);
+				FilePart filepart = new FilePart("media", file, "image/jpeg",
+						"UTF-8");
+				Part[] parts = new Part[] { filepart };
+				MultipartRequestEntity entity = new MultipartRequestEntity(
+						parts, post.getParams());
+				post.setRequestEntity(entity);
+			}
+			if (data != null) {
+				post.setRequestBody(data);
+			}
+			int status = client.executeMethod(post);
+			if (status == HttpStatus.SC_OK) {
+				String responseContent = post.getResponseBodyAsString();
+				JSONObject jsonObject = JSONObject.fromObject(responseContent);
+				System.out.println(responseContent);
+				if (jsonObject.get("errcode") == null) {
+					result = jsonObject.getString("media_id");
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	/**
@@ -205,6 +297,49 @@ public class UtilHttp {
 			// }
 
 			InputStream inputStreamReader = connection.getInputStream();
+			FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+			byte[] buffer = new byte[1204];
+			int byteread = 0;
+			while ((byteread = inputStreamReader.read(buffer)) != -1) {
+				fileOutputStream.write(buffer, 0, byteread);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	/**
+	 * 下载文件
+	 * 
+	 * @param url
+	 * @param data
+	 * @param filePath
+	 * @return
+	 */
+	public static void download(String url, String data, String filePath) {
+		try {
+			URL thisUrl = new URL(url);
+			HttpURLConnection connection = (HttpURLConnection) thisUrl
+					.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setRequestMethod("POST");
+			connection.setUseCaches(false);
+			connection.setInstanceFollowRedirects(true);
+			connection.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded");
+			connection.setRequestProperty("Accept-Charset", "UTF-8");
+			connection.connect();
+			if (data != null && !data.trim().equals("")) {
+				byte[] bypes = data.getBytes("utf-8");
+				OutputStream outputStream = connection.getOutputStream();// 输入参数
+				outputStream.write(bypes);
+				outputStream.flush();
+				outputStream.close();
+			}
+
+			InputStream inputStreamReader = connection.getInputStream();
+			@SuppressWarnings("resource")
 			FileOutputStream fileOutputStream = new FileOutputStream(filePath);
 			byte[] buffer = new byte[1204];
 			int byteread = 0;
