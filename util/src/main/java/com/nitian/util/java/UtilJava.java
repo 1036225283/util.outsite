@@ -23,7 +23,9 @@ public class UtilJava {
 			String fieldName = fields[i].getName();
 			if (existFieldAndMethod(objectClass, fieldName)) {
 				try {
-					map.put(fieldName, fields[i].get(object).toString());
+					if (fields[i].get(object) != null) {
+						map.put(fieldName, fields[i].get(object).toString());
+					}
 				} catch (IllegalArgumentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
