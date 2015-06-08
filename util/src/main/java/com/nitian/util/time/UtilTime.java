@@ -28,6 +28,18 @@ public class UtilTime {
 	}
 
 	/**
+	 * 将date转换为yyyyMMddHHmmss字符串
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static String dateToyyyyMMddHHmmss(Date date) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+				"yyyyMMddHHmmss");
+		return simpleDateFormat.format(date);
+	}
+
+	/**
 	 * 字符串转换为时间yyyy-MM-dd HH:mm:ss
 	 * 
 	 * @param time
@@ -44,9 +56,10 @@ public class UtilTime {
 		}
 		return date;
 	}
-	
+
 	/**
 	 * 将字符串年月日转换为时间
+	 * 
 	 * @param time
 	 * @return
 	 */
