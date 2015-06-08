@@ -1,6 +1,17 @@
 package com.nitian.util.random;
 
+import java.util.UUID;
+
 public class UtilRandom {
+
+	/**
+	 * 创建uuid
+	 * 
+	 * @return
+	 */
+	public static String createUUID() {
+		return UUID.randomUUID().toString();
+	}
 
 	/**
 	 * 创建随机数
