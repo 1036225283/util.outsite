@@ -11,6 +11,17 @@ import org.apache.commons.lang.StringUtils;
 public class UtilRequest {
 
 	/**
+	 * 获取服务器内部的目录
+	 * 
+	 * @param request
+	 * @param directory
+	 * @return
+	 */
+	public static String getPath(HttpServletRequest request, String directory) {
+		return request.getSession().getServletContext().getRealPath(directory);
+	}
+
+	/**
 	 * 获取ip
 	 * 
 	 * @param request
