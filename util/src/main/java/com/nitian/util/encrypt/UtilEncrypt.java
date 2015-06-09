@@ -1,5 +1,6 @@
 package com.nitian.util.encrypt;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -25,12 +26,24 @@ public class UtilEncrypt {
 			mdInst.update(bytes);
 			byte[] bs = mdInst.digest();
 			for (byte b : bs) {
-				sb.append(Integer.toHexString(b & 0xff));
+				String value = Integer.toHexString(b & 0xff);
+				if (value.length() == 2) {
+					sb.append(value);
+				} else {
+					sb.append("0" + value);
+				}
 			}
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return sb.toString();
+		String a = null;
+		try {
+			a = new String(sb.toString().getBytes(), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return a;
 	}
 }

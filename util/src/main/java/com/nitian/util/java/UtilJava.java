@@ -8,13 +8,53 @@ import com.nitian.util.string.UtilString;
 
 public class UtilJava {
 
+	public static String objectToXml(Object object) {
+		Class<?> objectClass = object.getClass();
+		Field[] fields = objectClass.getDeclaredFields();
+		StringBuffer sb = new StringBuffer();
+		sb.append("<xml>");
+		for (int i = 0; i < fields.length; i++) {
+			Field field = fields[i];
+			field.setAccessible(true);
+			String fieldName = fields[i].getName();
+			if (existFieldAndMethod(objectClass, fieldName)) {
+				try {
+					if (field.get(object) != null) {
+						if (field.getType().getName()
+								.equals("java.lang.Integer")) {
+							sb.append("<" + fieldName + ">");
+							sb.append(field.get(object).toString());
+							sb.append("</" + fieldName + ">");
+						} else if (field.getType().getName()
+								.equals("java.lang.String")) {
+							sb.append("<" + fieldName + ">");
+							sb.append("<![CDATA["
+									+ field.get(object).toString() + "]]>");
+							sb.append("</" + fieldName + ">");
+						} else {
+							throw new RuntimeException("没有相应的类型");
+						}
+					}
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		sb.append("</xml>");
+		return sb.toString();
+	}
+
 	/**
 	 * 对象转换成map
 	 * 
 	 * @return
 	 */
-	public static Map<String, String> objectToMap(Object object) {
-		Map<String, String> map = new HashMap<String, String>();
+	public static Map<String, Object> objectToMap(Object object) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		Class<?> objectClass = object.getClass();
 		Field[] fields = objectClass.getDeclaredFields();
 		for (int i = 0; i < fields.length; i++) {
