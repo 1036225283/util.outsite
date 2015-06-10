@@ -2,13 +2,52 @@ package com.nitian.util.request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 public class UtilRequest {
+
+	/**
+	 * 提取收到的xml数据转换为map
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public static Map<String, Object> xmlToMap(HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SAXReader saxReader = new SAXReader();
+
+		try {
+			InputStream inputStream = request.getInputStream();
+			Document document = saxReader.read(inputStream);
+			Element root = document.getRootElement();
+
+			@SuppressWarnings("unchecked")
+			List<Element> elements = root.elements();
+			for (Element element : elements) {
+				map.put(element.getName(), element.getText());
+			}
+			inputStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return map;
+	}
 
 	/**
 	 * 获取服务器内部的目录
