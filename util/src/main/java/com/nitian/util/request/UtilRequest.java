@@ -85,6 +85,18 @@ public class UtilRequest {
 	}
 
 	/**
+	 * 获取项目根目录
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public static String getRootUrl(HttpServletRequest request) {
+		String url = request.getScheme() + "://" + request.getServerName()
+				+ request.getContextPath();
+		return url;
+	}
+
+	/**
 	 * 获取访问url
 	 * 
 	 * @param request
