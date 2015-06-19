@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.simonizchina.franchisee.base.home.BaseService;
 import com.simonizchina.franchisee.test.home.dao.TestDao;
-import com.simonizchina.franchisee.test.home.entity.Test;
 
 @Service
 public class #EntityName#Service extends BaseService {

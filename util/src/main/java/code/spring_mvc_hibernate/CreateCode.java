@@ -10,8 +10,8 @@ public class CreateCode {
 	private String outPath;
 
 	public static void main(String[] args) {
-		CreateCode code = new CreateCode("MemberCar",
-				"F:\\spring-mvc\\spring-mvc\\src\\main\\java\\project\\");
+		CreateCode code = new CreateCode("MemberConsumeRecord",
+				"F:\\spring\\spring-mvc\\src\\main\\java\\project\\");
 		code.write();
 	}
 
