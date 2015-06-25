@@ -22,4 +22,20 @@ public class UtilResult {
 		json.put("root", resultMap);
 		return json.toString();
 	}
+
+	/**
+	 * 封装返回结果
+	 * 
+	 * @param result
+	 * @param object
+	 * @return
+	 */
+	public static String returnResult(Boolean result, Object object) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		JSONObject json = new JSONObject();
+		resultMap.put("result", result);
+		resultMap.put("message", object);
+		json.put("root", resultMap);
+		return json.toString();
+	}
 }
