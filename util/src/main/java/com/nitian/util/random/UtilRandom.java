@@ -10,7 +10,9 @@ public class UtilRandom {
 	 * @return
 	 */
 	public static String createUUID() {
-		return UUID.randomUUID().toString();
+		String uuid = UUID.randomUUID().toString();
+		uuid = uuid.replace("-", "");
+		return uuid;
 	}
 
 	/**
