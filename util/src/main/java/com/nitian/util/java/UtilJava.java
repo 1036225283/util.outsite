@@ -49,6 +49,45 @@ public class UtilJava {
 	}
 
 	/**
+	 * map转换成对象
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public static Object mapToObject(Map<String, Object> map, Class<?> clasz) {
+		Field[] fields = clasz.getDeclaredFields();
+		Object instance = null;
+		try {
+			instance = clasz.newInstance();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		for (int i = 0; i < fields.length; i++) {
+			Field field = fields[i];
+			field.setAccessible(true);
+			String fieldName = fields[i].getName();
+			if (existFieldAndMethod(clasz, fieldName)) {
+				try {
+					if (map.containsKey(fieldName)) {
+						fields[i].set(instance, map.get(fieldName));
+					}
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return instance;
+	}
+
+	/**
 	 * 对象转换成map
 	 * 
 	 * @return
