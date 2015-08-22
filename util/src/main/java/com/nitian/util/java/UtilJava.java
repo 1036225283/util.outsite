@@ -1,7 +1,9 @@
 package com.nitian.util.java;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.nitian.util.string.UtilString;
@@ -241,6 +243,23 @@ public class UtilJava {
 		value = value + type + " " + name + "){\r\n\t\tthis.";
 		value = value + name + " = " + name + ";\r\n\t}\r\n";
 		return value;
+	}
+
+	/**
+	 * 获取一个类中的所有字段--形成一个字符串集合
+	 * 
+	 * @param c
+	 * @return
+	 */
+	public static List<String> getFieldNames(Class<?> c) {
+		List<String> list = new ArrayList<String>();
+
+		Field[] fields = c.getDeclaredFields();
+		for (int i = 0; i < fields.length; i++) {
+			list.add(fields[i].getName());
+		}
+
+		return list;
 	}
 
 }
