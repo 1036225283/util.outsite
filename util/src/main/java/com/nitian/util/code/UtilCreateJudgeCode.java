@@ -25,34 +25,32 @@ public class UtilCreateJudgeCode {
 		 * 创建后台验证代码
 		 */
 		for (ClassModel classModel : classModels) {
-			if (classModel.getNullable() == false) {
-				if (classModel.getType().equals("java.lang.String")) {
-					sb.append("if (UtilString.judgeIsNull(");
-					sb.append(classModel.getFieldName());
-					sb.append(") == null) {");
-					sb.append("\n");
-					sb.append("\t");
-					sb.append("return UtilResult.returnResult(false, \"");
-					sb.append(classModel.getNote());
-					sb.append("不能为空\");");
-					sb.append("\n");
-					sb.append("}");
-					sb.append("\n");
-					sb.append("\t");
-				} else {
-					sb.append("if (");
-					sb.append(classModel.getFieldName());
-					sb.append(" == null) {");
-					sb.append("\n");
-					sb.append("\t");
-					sb.append("return UtilResult.returnResult(false, \"");
-					sb.append(classModel.getNote());
-					sb.append("不能为空\");");
-					sb.append("\n");
-					sb.append("}");
-					sb.append("\n");
-					sb.append("\t");
-				}
+			if (classModel.getType().equals("java.lang.String")) {
+				sb.append("if (UtilString.judgeIsNull(");
+				sb.append(classModel.getFieldName());
+				sb.append(") == null) {");
+				sb.append("\n");
+				sb.append("\t");
+				sb.append("return UtilResult.returnResult(false, \"");
+				sb.append(classModel.getNote());
+				sb.append("不能为空\");");
+				sb.append("\n");
+				sb.append("}");
+				sb.append("\n");
+				sb.append("\t");
+			} else {
+				sb.append("if (");
+				sb.append(classModel.getFieldName());
+				sb.append(" == null) {");
+				sb.append("\n");
+				sb.append("\t");
+				sb.append("return UtilResult.returnResult(false, \"");
+				sb.append(classModel.getNote());
+				sb.append("不能为空\");");
+				sb.append("\n");
+				sb.append("}");
+				sb.append("\n");
+				sb.append("\t");
 			}
 			System.out.println(classModel.getType());
 		}
