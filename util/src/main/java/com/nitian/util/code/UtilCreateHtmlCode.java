@@ -13,10 +13,17 @@ public class UtilCreateHtmlCode {
 
 	/**
 	 * 生成html和jsp代码
+	 */
+	public static void createHtmlCode() {
+		createHtmlCode(Code.c);
+	}
+
+	/**
+	 * 生成html和jsp代码
 	 * 
 	 * @param c
 	 */
-	public static void createHtmlCode(Class<?> c) {
+	private static void createHtmlCode(Class<?> c) {
 		List<ClassModel> classModels = Code.readClassModelInfo(c);
 
 		StringBuffer sb = new StringBuffer();

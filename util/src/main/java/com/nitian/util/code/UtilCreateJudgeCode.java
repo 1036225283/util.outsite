@@ -12,11 +12,18 @@ public class UtilCreateJudgeCode {
 	}
 
 	/**
+	 * 创建验证代码
+	 */
+	public static void createJudgeCode() {
+		createJudgeCode(Code.c);
+	}
+
+	/**
 	 * 创建java后台验证代码
 	 * 
 	 * @param c
 	 */
-	public static void createJudgeCode(Class<?> c) {
+	private static void createJudgeCode(Class<?> c) {
 		List<ClassModel> classModels = Code.readClassModelInfo(c);
 
 		StringBuffer sb = new StringBuffer();

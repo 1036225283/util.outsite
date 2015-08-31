@@ -11,7 +11,14 @@ public class UtilCreateParamCode {
 		createParamCode(Code.c);
 	}
 
-	public static void createParamCode(Class<?> c) {
+	/**
+	 * 创建参数代码
+	 */
+	public static void createParamCode() {
+		createParamCode(Code.c);
+	}
+
+	private static void createParamCode(Class<?> c) {
 		List<ClassModel> classModels = Code.readClassModelInfo(c);
 		StringBuffer sb = new StringBuffer();
 		for (ClassModel classModel : classModels) {

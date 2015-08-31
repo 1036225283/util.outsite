@@ -11,7 +11,14 @@ public class UtilCreateJsCode {
 		createJsCode(Code.c);
 	}
 
-	public static void createJsCode(Class<?> c) {
+	/**
+	 * 创建js代码
+	 */
+	public static void createJsCode() {
+		createJsCode(Code.c);
+	}
+
+	private static void createJsCode(Class<?> c) {
 		List<ClassModel> classModels = Code.readClassModelInfo(c);
 
 		StringBuffer sb = new StringBuffer();
