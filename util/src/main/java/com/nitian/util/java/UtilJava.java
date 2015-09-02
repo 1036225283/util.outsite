@@ -10,6 +10,44 @@ import com.nitian.util.string.UtilString;
 
 public class UtilJava {
 
+	/**
+	 * 不管是string或者int都进行了转换
+	 * 
+	 * @param object
+	 * @return
+	 */
+	public static String objectToXml2(Object object) {
+		Class<?> objectClass = object.getClass();
+		Field[] fields = objectClass.getDeclaredFields();
+		StringBuffer sb = new StringBuffer();
+		sb.append("<xml>");
+		for (int i = 0; i < fields.length; i++) {
+			Field field = fields[i];
+			field.setAccessible(true);
+			String fieldName = fields[i].getName();
+			if (existFieldAndMethod(objectClass, fieldName)) {
+				try {
+					sb.append("<" + fieldName + ">");
+					sb.append("<![CDATA[" + field.get(object).toString()
+							+ "]]>");
+					sb.append("</" + fieldName + ">");
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		sb.append("</xml>");
+		return sb.toString();
+	}
+
+	/**
+	 * string加出来，int/integer不加
+	 * 
+	 * @param object
+	 * @return
+	 */
 	public static String objectToXml(Object object) {
 		Class<?> objectClass = object.getClass();
 		Field[] fields = objectClass.getDeclaredFields();
