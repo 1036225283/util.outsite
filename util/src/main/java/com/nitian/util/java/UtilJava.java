@@ -31,6 +31,7 @@ public class UtilJava {
 					sb.append("<![CDATA[" + field.get(object).toString()
 							+ "]]>");
 					sb.append("</" + fieldName + ">");
+					sb.append("\n");
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
