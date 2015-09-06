@@ -1,8 +1,9 @@
 package com.nitian.util.api.baidu;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
+
+import org.apache.commons.lang.StringEscapeUtils;
 
 import com.nitian.util.http.UtilHttp;
 
@@ -14,16 +15,15 @@ import com.nitian.util.http.UtilHttp;
  */
 public class UtilGeocoding {
 
-	private static String ak = "5033f8777254d8e7844d04a0602655f7";
-
 	private static String geocoder_url = "http://api.map.baidu.com/geocoder/v2/?output=json&ak="
-			+ ak + "&";
+			+ Ak.ak + "&";
 
 	/**
 	 * 根据地址查坐标
+	 * 
 	 * @param address
 	 */
-	public static void geocoderByAddress(String address) {
+	public static String geocoderByAddress(String address) {
 
 		try {
 			address = URLEncoder.encode(address, "utf8");
@@ -31,24 +31,18 @@ public class UtilGeocoding {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		geocoder_url = geocoder_url + "address=" + address;
-
-		String s = UtilHttp.get(geocoder_url);
-		try {
-			s = URLDecoder.decode(s, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(s);
+		String url = geocoder_url + "address=" + address;
+		String result = UtilHttp.get(url);
+		result = StringEscapeUtils.unescapeJava(result);
+		return result;
 	}
-	
-	
+
 	/**
 	 * 根据坐标获取地址
+	 * 
 	 * @param location
 	 */
-	public static void geocoderByLocation(String location) {
+	public static String geocoderByLocation(String location) {
 
 		try {
 			location = URLEncoder.encode(location, "utf8");
@@ -56,21 +50,18 @@ public class UtilGeocoding {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		geocoder_url = geocoder_url + "location=" + location;
+		String url = geocoder_url + "location=" + location;
 
-		String s = UtilHttp.get(geocoder_url);
-		try {
-			s = URLDecoder.decode(s, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(s);
+		String result = UtilHttp.get(url);
+		result = StringEscapeUtils.unescapeJava(result);
+		return result;
 	}
 
 	public static void main(String[] args) {
-//		geocoderByAddress("青岛 ");
-		geocoderByLocation("36.112518,120.435807");
+		String s = geocoderByAddress("青岛 ");
+		System.out.println(s);
+		String a = geocoderByLocation("36.112518,120.435807");
+		System.out.println(a);
 	}
 
 }
