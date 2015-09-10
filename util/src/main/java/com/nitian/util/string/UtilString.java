@@ -74,4 +74,37 @@ public class UtilString {
 			}
 		}
 	}
+
+	/**
+	 * 判断是否是中文字符
+	 * 
+	 * @return
+	 */
+	public static boolean judgeIsChinese(char c) {
+		if (c >= 19968 && c <= 171941) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * 判断字符串是否全是中文
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static boolean judgeStringIsChinese(String s) {
+		if (s == null) {
+			return false;
+		}
+		char[] cs = s.toCharArray();
+		for (int i = 0; i < cs.length; i++) {
+			if (judgeIsChinese(cs[i]) == false) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 }
