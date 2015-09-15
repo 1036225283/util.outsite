@@ -6,6 +6,18 @@ import java.util.regex.Pattern;
 public class UtilVerify {
 
 	/**
+	 * 判断是不是手机号
+	 * 
+	 * @param mobiles
+	 * @return
+	 */
+	public static boolean isMobileNO(String mobiles) {
+		Pattern p = Pattern.compile("^(13|15|18)\\d{9}$");
+		Matcher m = p.matcher(mobiles);
+		return m.matches();
+	}
+
+	/**
 	 * 验证手机号
 	 * 
 	 * @param str
