@@ -11,7 +11,8 @@ public class UtilSqlBackup {
 	private static String str = null;
 
 	public static void main(String[] args) {
-		backupAll();
+		// backupAll();
+		load();
 	}
 
 	public static void backupAll() {
@@ -63,16 +64,17 @@ public class UtilSqlBackup {
 	}
 
 	public static void load() {
-		str = "mysql -u root -proot j2603  <  d:/test.sql";
+		String mysqlBinPath = "G:\\software\\MYSQL\\HOME\\bin\\";
+		str = mysqlBinPath
+				+ "mysql -u root -proot franchisee  <  d:/20150923221001.sql";
 		// mysql命令可以实现数据库的还原。格式“mysql -u Username -pPassword database_name <
-		// back_up_dir ”
-		Runtime rt = Runtime.getRuntime();
+		Runtime runtime = Runtime.getRuntime();
 		try {
-			rt.exec("cmd /c" + str);
+			Process process = runtime.exec("cmd /c" + str);
+			process.waitFor();
 			System.out.println("restore successly!");
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
-			System.out.println("restore fail!");
 		}
 	}
 }
