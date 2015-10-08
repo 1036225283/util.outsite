@@ -11,8 +11,8 @@ public class UtilSqlBackup {
 	private static String str = null;
 
 	public static void main(String[] args) {
-		// backupAll();
-		load();
+		 backupAll();
+//		load();
 	}
 
 	public static void backupAll() {
