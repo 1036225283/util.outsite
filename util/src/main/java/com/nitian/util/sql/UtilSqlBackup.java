@@ -8,11 +8,10 @@ import java.util.List;
 import com.nitian.util.time.TimeString;
 
 public class UtilSqlBackup {
-	private static String str = null;
 
 	public static void main(String[] args) {
-		 backupAll();
-//		load();
+//		 backupAll();
+		load();
 	}
 
 	public static void backupAll() {
@@ -65,8 +64,9 @@ public class UtilSqlBackup {
 
 	public static void load() {
 		String mysqlBinPath = "G:\\software\\MYSQL\\HOME\\bin\\";
-		str = mysqlBinPath
-				+ "mysql -u root -proot franchisee  <  d:/20150923221001.sql";
+		String backupPath = "F:\\sql\\sql\\";
+		String str = mysqlBinPath
+				+ "mysql -h192.168.1.99  -uroot -proot franchisee  < "+backupPath+"20151008franchisee.sql";
 		// mysql命令可以实现数据库的还原。格式“mysql -u Username -pPassword database_name <
 		Runtime runtime = Runtime.getRuntime();
 		try {
