@@ -12,8 +12,7 @@ public class UtilStringHex {
 		int length = string.length() / 2;
 		String[] strings = new String[length];
 		for (int i = 0; i < length; i++) {
-			strings[i] = string.substring(i, i + 1)
-					+ string.substring(i + 1, i + 2);
+			strings[i] = string.substring(i * 2, i * 2 + 2);
 		}
 		for (int i = 0; i < strings.length; i++) {
 			String chars = strings[i];
