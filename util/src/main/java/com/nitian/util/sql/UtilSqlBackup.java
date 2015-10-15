@@ -10,8 +10,8 @@ import com.nitian.util.time.TimeString;
 public class UtilSqlBackup {
 
 	public static void main(String[] args) {
-//		 backupAll();
-		load();
+		 backupAll();
+//		load();
 	}
 
 	public static void backupAll() {
