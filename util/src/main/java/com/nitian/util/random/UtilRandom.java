@@ -29,4 +29,21 @@ public class UtilRandom {
 		return sb.toString();
 	}
 
+	/**
+	 * 创建随机0-f的字符表示,此十六进制字符可直接转换为字节数组
+	 * 
+	 * @param count
+	 * @return
+	 */
+	public static String createHexString(Integer count) {
+		String value = "0123456789abcdef";
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < count; i++) {
+			sb.append(0);
+			int index = (int) (Math.random() * 16);
+			sb.append(value.charAt(index));
+		}
+		return sb.toString();
+	}
+
 }
