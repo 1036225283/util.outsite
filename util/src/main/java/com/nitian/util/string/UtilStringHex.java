@@ -15,13 +15,8 @@ public class UtilStringHex {
 			strings[i] = string.substring(i * 2, i * 2 + 2);
 		}
 		for (int i = 0; i < strings.length; i++) {
-			String chars = strings[i];
-			if (chars.charAt(0) == '0') {
-				bs[i] = (byte) chars.charAt(1);
-			} else {
-				int value = Integer.parseInt(strings[i], 16);
-				bs[i] = (byte) value;
-			}
+			int value = Integer.parseInt(strings[i], 16);
+			bs[i] = (byte) value;
 		}
 	}
 

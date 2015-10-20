@@ -1,5 +1,6 @@
 package com.nitian.util.file;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.nitian.util.string.UtilStringHex;
 
 public class UtilFile {
 
@@ -71,6 +74,38 @@ public class UtilFile {
 	}
 
 	/**
+	 * 读取文件字节转换为16进制字符
+	 * 
+	 * @param fileName
+	 * @return
+	 */
+	public static String fileToHexString(String fileName) {
+		return UtilStringHex.bytesHexStr(fileToHex(fileName));
+	}
+
+	/**
+	 * 读取文件的字节流
+	 * 
+	 * @param fileName
+	 * @return
+	 */
+	public static byte[] fileToHex(String fileName) {
+		File file = new File(fileName);
+		FileInputStream fileInputStream;
+		byte[] bs = new byte[(int) (file.length())];
+		try {
+			fileInputStream = new FileInputStream(file);
+			BufferedInputStream bufferedInputStream = new BufferedInputStream(
+					fileInputStream);
+			bufferedInputStream.read(bs);
+			bufferedInputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bs;
+	}
+
+	/**
 	 * 将字符串写入文件
 	 * 
 	 * @param value
@@ -96,6 +131,41 @@ public class UtilFile {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
 
+	/**
+	 * 将16进制字符串转换为字节，写入文件
+	 * 
+	 * @param value
+	 * @param fileName
+	 */
+	public static void hexStringToFile(String value, String fileName) {
+		hexToFile(UtilStringHex.initByte(value), fileName);
+	}
+
+	/**
+	 * 将字节流写入文件
+	 * 
+	 * @param value
+	 * @param fileName
+	 */
+	public static void hexToFile(byte[] value, String fileName) {
+		File file = new File(fileName);
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		FileOutputStream fileOutputStream;
+		try {
+			fileOutputStream = new FileOutputStream(file);
+			fileOutputStream.write(value, 0, value.length);
+			fileOutputStream.flush();
+			fileOutputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
