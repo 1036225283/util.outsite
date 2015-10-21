@@ -1,6 +1,5 @@
 package com.nitian.util.encrypt;
 
-import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -9,81 +8,172 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 import com.nitian.util.string.UtilStringHex;
 
 public class UtilRSA {
 
-	public static void main(String[] args) {
-		String value = "this is string !!";
-		try {
-			// 1.第一步，初始化密钥
-			KeyPairGenerator keyPairGenerator = KeyPairGenerator
-					.getInstance("RSA");
-			keyPairGenerator.initialize(1024);
+	private String publicKey;
 
+	private String privateKey;
+
+	private KeyFactory keyFactory;
+
+	public UtilRSA() {
+		// TODO Auto-generated constructor stub
+		init();
+	}
+
+	private void init() {
+		try {
+			keyFactory = KeyFactory.getInstance("RSA");
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 创建公钥，私钥
+	 */
+	public void createKey() {
+		KeyPairGenerator keyPairGenerator;
+		try {
+			keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+			keyPairGenerator.initialize(1024);
 			KeyPair keyPair = keyPairGenerator.generateKeyPair();
 			RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
 			RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();
+			publicKey = UtilStringHex.bytesHexStr(rsaPublicKey.getEncoded());
+			privateKey = UtilStringHex.bytesHexStr(rsaPrivateKey.getEncoded());
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-			System.out.println(UtilStringHex.bytesHexStr(rsaPublicKey
-					.getEncoded()));
-			System.out.println("公钥的长度："
-					+ UtilStringHex.bytesHexStr(rsaPublicKey.getEncoded())
-							.length());
-			System.out.println();
-			System.out.println("私钥的长度："
-					+ UtilStringHex.bytesHexStr(rsaPrivateKey.getEncoded())
-							.length());
-			System.out.println(UtilStringHex.bytesHexStr(rsaPrivateKey
-					.getEncoded()));
+	/**
+	 * 公钥加密
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public byte[] publicKeyEncrypt(byte[] value) {
+		byte[] result = null;
+		X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(
+				UtilStringHex.initByte(publicKey));
+		try {
+			PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
+			Cipher cipher = Cipher.getInstance("RSA");
+			cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+			result = cipher.doFinal(value);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 
-			// 2.私钥加密，公钥解密--加密
-			PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(
-					rsaPrivateKey.getEncoded());
-			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+	/**
+	 * 公钥解密
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public byte[] publicKeyUnEncrypt(byte[] value) {
+		byte[] result = null;
+		X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(
+				UtilStringHex.initByte(publicKey));
+		try {
+			PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
+			Cipher cipher = Cipher.getInstance("RSA");
+			cipher.init(Cipher.DECRYPT_MODE, publicKey);
+			result = cipher.doFinal(value);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * 私钥加密
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public byte[] privateKeyEncrypt(byte[] value) {
+		PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(
+				UtilStringHex.initByte(privateKey));
+		byte[] result = null;
+		try {
 			PrivateKey privateKey = keyFactory
 					.generatePrivate(pkcs8EncodedKeySpec);
 			Cipher cipher = Cipher.getInstance("RSA");
 			cipher.init(Cipher.ENCRYPT_MODE, privateKey);
-			byte[] result = cipher.doFinal(value.getBytes());
-			System.out.println(UtilStringHex.bytesHexStr(result));
-
-			// 3.私钥加密，公钥解密--解密
-			X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(
-					rsaPublicKey.getEncoded());
-			keyFactory = KeyFactory.getInstance("RSA");
-			PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
-			cipher = Cipher.getInstance("RSA");
-			cipher.init(Cipher.DECRYPT_MODE, publicKey);
-			result = cipher.doFinal(result);
-			System.out.println(new String(result));
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidKeySpecException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchPaddingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidKeyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalBlockSizeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (BadPaddingException e) {
+			result = cipher.doFinal(value);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return result;
+	}
+
+	/**
+	 * 私钥解密
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public byte[] privateKeyUnEncrypt(byte[] value) {
+		PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(
+				UtilStringHex.initByte(privateKey));
+		byte[] result = null;
+		try {
+			PrivateKey privateKey = keyFactory
+					.generatePrivate(pkcs8EncodedKeySpec);
+			Cipher cipher = Cipher.getInstance("RSA");
+			cipher.init(Cipher.DECRYPT_MODE, privateKey);
+			result = cipher.doFinal(value);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public static void main(String[] args) {
+		UtilRSA utilRSA = new UtilRSA();
+		utilRSA.createKey();
+		byte[] result = utilRSA
+				.privateKeyEncrypt("private encrypt public unencrypt"
+						.getBytes());
+		byte[] ss = utilRSA.publicKeyUnEncrypt(result);
+		System.out.println(new String(ss));
+
+		byte[] pe = utilRSA.publicKeyEncrypt("public encrypt private unencrypt"
+				.getBytes());
+		byte[] dd = utilRSA.privateKeyUnEncrypt(pe);
+		System.out.println(new String(dd));
+	}
+
+	public String getPublicKey() {
+		return publicKey;
+	}
+
+	public void setPublicKey(String publicKey) {
+		this.publicKey = publicKey;
+	}
+
+	public String getPrivateKey() {
+		return privateKey;
+	}
+
+	public void setPrivateKey(String privateKey) {
+		this.privateKey = privateKey;
 	}
 }
