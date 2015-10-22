@@ -168,4 +168,29 @@ public class UtilFile {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * 判断文件后缀是否.jar
+	 * 
+	 * @param path
+	 * @return
+	 */
+	public static boolean judgeJar(String path) {
+		String jar = path.substring(path.length() - 4);
+		if (".jar".equals(jar)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * 获取jar的目录
+	 * 
+	 * @param path
+	 * @return
+	 */
+	public static String getJarPath(String path) {
+		return path.substring(0, path.lastIndexOf("/"));
+	}
 }
