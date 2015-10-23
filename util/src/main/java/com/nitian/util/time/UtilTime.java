@@ -8,6 +8,8 @@ public class UtilTime {
 
 	public static long beforeTime = 30l * 1000 * 60;
 
+	private static long startTime = 0;
+
 	/**
 	 * 当天预约,提前30分钟
 	 * 
@@ -73,5 +75,19 @@ public class UtilTime {
 			e.printStackTrace();
 		}
 		return date;
+	}
+
+	/**
+	 * 开始测试程序运行时间
+	 */
+	public static void startTest() {
+		startTime = new Date().getTime();
+	}
+
+	/**
+	 * 结束或者继续测试时间
+	 */
+	public static void endTest() {
+		System.out.println("testTime: " + (new Date().getTime() - startTime));
 	}
 }
