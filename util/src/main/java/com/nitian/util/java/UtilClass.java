@@ -24,16 +24,9 @@ public class UtilClass {
 	}
 
 	public static void test() {
-		String path = UtilClass.class.getProtectionDomain().getCodeSource()
-				.getLocation().getPath().trim();
-		if (UtilFile.judgeJar(path)) {
-			String filePath = UtilFile.getJarPath(path);
-			UtilFile.stringToFile(path, filePath + "\\duck.text");
-		}
-		String filePath = UtilFile.getJarPath(path);
-		System.out.println(filePath);
-		System.out.println(path);
-		System.out.println("d");
+		byte[] a = UtilAES.encrypt(aesKey, "helloworld".getBytes());
+		byte[] result = UtilAES.decrypt(aesKey, a);
+		System.out.println(new String(result));
 	}
 
 	/**

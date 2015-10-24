@@ -49,6 +49,7 @@ public class UtilEncrypt {
 		return sb.toString();
 	}
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		String s = "1234567890";
 		System.out.println(swap1(s));
