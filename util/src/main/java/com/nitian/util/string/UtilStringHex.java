@@ -152,4 +152,28 @@ public class UtilStringHex {
 		}
 		return str.toString();
 	}
+
+	/**
+	 * 字符直接转字节
+	 * 
+	 * @param chars
+	 * @return
+	 */
+	public static byte[] charsToBytes(char[] chars) {
+		byte[] bytes = new byte[chars.length];
+		for (int i = 0; i < chars.length; i++) {
+			bytes[i] = (byte) chars[i];
+		}
+		return bytes;
+	}
+
+	/**
+	 * 将string分解成16进制string
+	 * 
+	 * @param string
+	 * @return
+	 */
+	public static final String stringToHexString(String string) {
+		return bytesHexStr(string.getBytes());
+	}
 }

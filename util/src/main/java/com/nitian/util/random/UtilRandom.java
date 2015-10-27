@@ -46,4 +46,20 @@ public class UtilRandom {
 		return sb.toString();
 	}
 
+	/**
+	 * 创建字符型字符串
+	 * 
+	 * @param count
+	 * @return
+	 */
+	public static String createCharString(Integer count) {
+		String value = "0123456789abcdefghijklmnopqrstuvwxzy";
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < count; i++) {
+			int index = (int) (Math.random() * 36);
+			sb.append(value.charAt(index));
+		}
+		return sb.toString();
+	}
+
 }
