@@ -176,4 +176,6 @@ public class UtilStringHex {
 	public static final String stringToHexString(String string) {
 		return bytesHexStr(string.getBytes());
 	}
+	
+	
 }
