@@ -1,5 +1,9 @@
 package com.nitian.util.json;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class UtilJson {
@@ -27,4 +31,23 @@ public class UtilJson {
 		jsonObject.put("object", object);
 		return jsonObject.getString("object");
 	}
+
+	/**
+	 * json-->array
+	 * 
+	 * @param string
+	 * @param clazz
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> List<T> stringToList(String string, Class<?> clazz) {
+		List<T> list = new ArrayList<T>();
+		JSONArray array = JSONArray.fromObject(string);
+		for (int i = 0; i < array.size(); i++) {
+			JSONObject jsonObject = array.getJSONObject(i);
+			list.add((T) JSONObject.toBean(jsonObject, clazz));
+		}
+		return list;
+	}
+
 }
