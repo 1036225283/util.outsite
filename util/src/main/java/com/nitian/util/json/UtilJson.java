@@ -41,6 +41,9 @@ public class UtilJson {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> stringToList(String string, Class<?> clazz) {
+		if (string == null) {
+			return null;
+		}
 		List<T> list = new ArrayList<T>();
 		JSONArray array = JSONArray.fromObject(string);
 		for (int i = 0; i < array.size(); i++) {
