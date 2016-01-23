@@ -19,7 +19,7 @@ public class UtilResult {
 		JSONObject json = new JSONObject();
 		resultMap.put("result", result);
 		resultMap.put("message", message);
-		json.put("root", resultMap);
+		json.putAll(resultMap);
 		return json.toString();
 	}
 
@@ -35,7 +35,7 @@ public class UtilResult {
 		JSONObject json = new JSONObject();
 		resultMap.put("result", result);
 		resultMap.put("message", object);
-		json.put("root", resultMap);
+		json.putAll(resultMap);
 		return json.toString();
 	}
 }
