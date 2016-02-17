@@ -36,6 +36,25 @@ public class TimeString {
 
 	private String second;
 
+	/**
+	 * 转换为2015-12-12 23:33:33
+	 * 
+	 * @return
+	 */
+	public String toYY_MM_DDHH_MM_SS() {
+		return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":"
+				+ second;
+	}
+
+	/**
+	 * 转换为20151212233333
+	 * 
+	 * @return
+	 */
+	public String toYYMMDDHHMMSS() {
+		return year + month + day + hour + minute + second;
+	}
+
 	private void timeToString() {
 		DateFormat yyyy = new SimpleDateFormat("yyyy");
 		year = yyyy.format(date);

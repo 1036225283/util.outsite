@@ -1,12 +1,26 @@
 package com.nitian.util.json;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class UtilJson {
+
+	public static void main(String[] args) {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		for (int i = 0; i < 10; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("duck", "duck");
+			map.put("luck", "luck");
+			list.add(map);
+		}
+		String s = UtilJson.objectToString(list);
+		System.out.println(s);
+	}
 
 	/**
 	 * string 转 object
