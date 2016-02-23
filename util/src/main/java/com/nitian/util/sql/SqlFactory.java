@@ -3,6 +3,8 @@ package com.nitian.util.sql;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.nitian.util.java.UtilJava;
+
 /**
  * 约定：table.insert table.update table.delete table.select table.getList
  * 
@@ -82,4 +84,15 @@ public class SqlFactory {
 		sb.append(key).append(")values(").append(value).append(")");
 		this.put(table + "insert", sb.toString());
 	}
+
+	/**
+	 * 创建insert语句
+	 * 
+	 * @param table
+	 * @param c
+	 */
+	public void createInsertSql(String table, Class<?> c) {
+		createInsertSql(table, UtilJava.classToMap(c));
+	}
+
 }

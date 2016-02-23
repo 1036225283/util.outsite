@@ -129,6 +129,21 @@ public class UtilJava {
 	}
 
 	/**
+	 * class to map
+	 * 
+	 * @param c
+	 * @return
+	 */
+	public static Map<String, Object> classToMap(Class<?> c) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Field[] fields = c.getDeclaredFields();
+		for (int i = 0; i < fields.length; i++) {
+			map.put(fields[i].getName(), null);
+		}
+		return map;
+	}
+
+	/**
 	 * 对象转换成map
 	 * 
 	 * @return
