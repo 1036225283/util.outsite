@@ -1,5 +1,6 @@
 package com.nitian.util.sql;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -57,6 +58,27 @@ public class UtilSql {
 	public static Map<String, Object> resultSetToMap(ResultSet resultSet) {
 		Map<String, Object> map = getMap(resultSet);
 		setMap(map, resultSet);
+		return map;
+	}
+
+	/**
+	 * 获取表的所有字段
+	 * 
+	 * @param table
+	 * @param connection
+	 * @return
+	 */
+	public static Map<String, Object> getMapByTable(String table,
+			Connection connection) {
+		Map<String, Object> map = null;
+		try {
+			ResultSet resultSet = connection.getMetaData().getColumns(null,
+					null, table, null);
+			map = getMap(resultSet);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return map;
 	}
 
