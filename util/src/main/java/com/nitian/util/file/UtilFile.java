@@ -63,9 +63,14 @@ public class UtilFile {
 			BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(fileInputStream, "utf-8"));
 			String line = null;
+			int index = 0;
 			while ((line = bufferedReader.readLine()) != null) {
+				if (index == 0) {
+					index = index + 1;
+				} else {
+					sb.append("\r\n");
+				}
 				sb.append(line);
-				sb.append("\r\n");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
