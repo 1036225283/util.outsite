@@ -3,6 +3,17 @@ package com.nitian.util.string;
 public class UtilString {
 
 	/**
+	 * 生成奇葩字符
+	 * 
+	 * @return
+	 */
+	public static String getEFBBBF() {
+		String EFBBBF = new String("EFBBBF");
+		byte[] eByte = UtilStringHex.initByte(EFBBBF);
+		return new String(eByte);
+	}
+
+	/**
 	 * 首字母大写
 	 * 
 	 * @param value
