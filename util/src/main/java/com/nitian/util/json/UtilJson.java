@@ -35,6 +35,22 @@ public class UtilJson {
 	}
 
 	/**
+	 * 
+	 * @param string
+	 * @param entityClass
+	 * @return
+	 */
+	public static String[] stringToArray(String string, Class<?> entityClass) {
+		JSONArray jsonArray = JSONArray.fromObject(string);
+		Object[] objects = jsonArray.toArray();
+		String[] strings = new String[objects.length];
+		for (int i = 0; i < objects.length; i++) {
+			strings[i] = objects[i].toString();
+		}
+		return strings;
+	}
+
+	/**
 	 * object 转 string
 	 * 
 	 * @param object
