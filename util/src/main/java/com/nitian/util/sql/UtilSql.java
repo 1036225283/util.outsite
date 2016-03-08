@@ -75,6 +75,7 @@ public class UtilSql {
 			ResultSet resultSet = connection.getMetaData().getColumns(null,
 					null, table, null);
 			map = getMap(resultSet);
+			System.out.println(map);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

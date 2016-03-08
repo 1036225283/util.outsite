@@ -51,9 +51,13 @@ public class UtilEncrypt {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		String s = "1234567890";
-		System.out.println(swap1(s));
+		String s = "1234567890ab";
+//		System.out.println((swap1(s)));
+//		System.out.println((swap1(swap1(s))));
+//		System.out.println((swap1(swap1(swap1(s)))));
+//		System.out.println((swap1(swap1(swap1(swap1(s))))));
 		System.out.println(swap2(s));
+		System.out.println(swap2(swap2(s)));
 		System.out.println(10 / 2);
 
 		String a = "4";
