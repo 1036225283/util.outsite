@@ -1,7 +1,10 @@
 package com.nitian.util.redis;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.nitian.util.json.UtilJson;
 
@@ -28,5 +31,17 @@ public class Test {
 		String ssss = UtilJson.objectToString(ss);
 		String[] d = (String[]) UtilJson.stringToArray(ssss, String[].class);
 		System.out.println(d);
+
+		Set<String> set = UtilRedis.getKey(null);
+		System.out.println("set.size() = " + set.size());
+
+		// 获取部分key
+		set = UtilRedis.getKey("ZDXX*");
+		Iterator<String> it = set.iterator();
+		while (it.hasNext()) {
+			System.out.println(it.next());
+			// System.out.println(UtilRedisHash.get(it.next()));
+		}
+		// System.out.println("set.size() = " + set.size());
 	}
 }

@@ -2,6 +2,8 @@ package com.nitian.util.redis;
 
 import java.util.Set;
 
+import com.nitian.util.json.UtilJson;
+
 import redis.clients.jedis.Jedis;
 
 public class UtilRedisSet {
@@ -17,6 +19,17 @@ public class UtilRedisSet {
 	public static Set<String> get(String key) {
 		Set<String> set = jedis.smembers(key);
 		return set;
+	}
+
+	/**
+	 * 获取[1,3,4,5]
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public static String getJson(String key) {
+		Set<String> set = jedis.smembers(key);
+		return UtilJson.objectToString(set);
 	}
 
 	/**
