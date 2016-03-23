@@ -15,6 +15,25 @@ import com.nitian.util.string.UtilStringHex;
 public class UtilFile {
 
 	/**
+	 * 获取某一目录下第一层子目录所有文件
+	 * 
+	 * @param path
+	 * @return
+	 */
+	public static List<String> getAllChildren(String path) {
+		List<String> fileNameList = new ArrayList<String>();
+		File rootFile = new File(path);
+		File[] files = rootFile.listFiles();
+		for (int i = 0; i < files.length; i++) {
+			File file = files[i];
+			if (file.isFile()) {
+				fileNameList.add(file.getAbsolutePath());
+			}
+		}
+		return fileNameList;
+	}
+
+	/**
 	 * 获取某一目录下所有文件名
 	 * 
 	 * @param path
@@ -129,6 +148,33 @@ public class UtilFile {
 		FileOutputStream fileOutputStream;
 		try {
 			fileOutputStream = new FileOutputStream(file);
+			byte[] b = value.getBytes("utf-8");
+			fileOutputStream.write(b, 0, b.length);
+			fileOutputStream.flush();
+			fileOutputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 将字符串追加到文件
+	 * 
+	 * @param value
+	 * @param fileName
+	 */
+	public static void stringAppendFile(String value, String fileName) {
+		File file = new File(fileName);
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		FileOutputStream fileOutputStream;
+		try {
+			fileOutputStream = new FileOutputStream(file, true);
 			byte[] b = value.getBytes("utf-8");
 			fileOutputStream.write(b, 0, b.length);
 			fileOutputStream.flush();
