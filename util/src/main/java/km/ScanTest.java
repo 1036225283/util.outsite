@@ -7,13 +7,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedList;
+import java.util.List;
 
-public class Test {
+public class ScanTest {
 
 	private static String directory = "";
 	private static String outDirectory = "";
 	private static int total = 0;
 	private static FileOutputStream fileOutputStream;
+
+	private static List<File> list = new LinkedList<File>();
+	private static File[] files;
+	private static File file;
 
 	public static void main(String[] args) {
 		test();
@@ -37,7 +43,7 @@ public class Test {
 	}
 
 	public static void init() {
-		File file = new File(outDirectory + "xws.json");
+		File file = new File(outDirectory + "/xws.json");
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -67,26 +73,27 @@ public class Test {
 			System.out.println("开始扫描：");
 			init();
 			File file = new File(directory);
-			getAllFileName(file);
+			list.add(file);
+			getAllFileName();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		}
-		appendString("------------------------------");
+		appendString("--------------end----------------");
 	}
 
-	private final static void getAllFileName(File rootFile) {
-		File[] files = rootFile.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			File file = files[i];
-			if (file.isFile()) {
-				System.out.println("----" + file.getAbsolutePath());
-				total = total + 1;
-				System.out.println("total:" + total);
+	private final static void getAllFileName() {
+		while (list.size() != 0) {
+			file = list.remove(0);
+			if (file.isDirectory()) {
+				files = file.listFiles();
+				for (int i = 0; i < files.length; i++) {
+					list.add(files[i]);
+				}
+			} else {
 				appendString(file.getAbsolutePath() + "\n");
-			} else if (file.isDirectory()) {
-				System.out.println("+++" + file.getAbsolutePath());
-				getAllFileName(file);
+				total = total + 1;
+				System.out.println("----total : " + total);
 			}
 		}
 	}
