@@ -7,17 +7,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ScanTest {
+public class ScanDirectoryByArrayList {
 
 	private static String directory = "";
 	private static String outDirectory = "";
 	private static int total = 0;
 	private static FileOutputStream fileOutputStream;
 
-	private static List<File> list = new LinkedList<File>();
+	private static List<File> list = new ArrayList<File>();
 	private static File[] files;
 	private static File file;
 
@@ -84,16 +84,17 @@ public class ScanTest {
 
 	private final static void getAllFileName() {
 		while (list.size() != 0) {
-			file = list.remove(0);
+			file = list.remove(list.size() - 1);
 			if (file.isDirectory()) {
+				System.out.println("+++" + file.getAbsolutePath());
+				appendString(file.getAbsolutePath() + "\n");
 				files = file.listFiles();
+				System.out.println("000files size : " + files.length);
+				total = total + 1;
+				System.out.println(total);
 				for (int i = 0; i < files.length; i++) {
 					list.add(files[i]);
 				}
-			} else {
-				appendString(file.getAbsolutePath() + "\n");
-				total = total + 1;
-				System.out.println("----total : " + total);
 			}
 		}
 	}
