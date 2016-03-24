@@ -21,6 +21,8 @@ public class ScanDirectoryByLinkedList {
 	private static File[] files;
 	private static File file;
 
+	private static int index = 0;
+
 	public static void main(String[] args) {
 		test();
 		System.out.println("this is end");
@@ -77,6 +79,7 @@ public class ScanDirectoryByLinkedList {
 			getAllFileName();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
 		appendString("--------------end----------------");
@@ -84,12 +87,20 @@ public class ScanDirectoryByLinkedList {
 
 	private final static void getAllFileName() {
 		while (list.size() != 0) {
-			file = list.remove(list.size() - 1);
+			file = list.remove(0);
+			index = index + 1;
+			if (index == 7) {
+				System.out.println("");
+			}
+			System.out.println("index: " + index);
 			if (file.isDirectory()) {
 				System.out.println("+++" + file.getAbsolutePath());
 				appendString(file.getAbsolutePath() + "\n");
 				files = file.listFiles();
-				System.out.println("000files size : " + files.length);
+				if (files == null) {
+					continue;
+				}
+				System.out.println("^^^list size : " + list.size());
 				total = total + 1;
 				System.out.println(total);
 				for (int i = 0; i < files.length; i++) {
