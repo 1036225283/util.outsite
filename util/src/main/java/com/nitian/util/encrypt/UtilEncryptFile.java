@@ -1,5 +1,6 @@
 package com.nitian.util.encrypt;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.nitian.util.file.UtilFile;
@@ -32,8 +33,10 @@ public class UtilEncryptFile {
 	 * 
 	 * @param path
 	 * @param rsaPrivateKey
+	 * @throws IOException
 	 */
-	public static void encryptClassByRSA(String path, String rsaPrivateKey) {
+	public static void encryptClassByRSA(String path, String rsaPrivateKey)
+			throws IOException {
 		UtilRSA utilRSA = new UtilRSA();
 		utilRSA.setPrivateKey(rsaPrivateKey);
 		List<String> list = UtilFile.getAllFileName(path);
@@ -50,8 +53,10 @@ public class UtilEncryptFile {
 	 * 
 	 * @param path
 	 * @param rasPublicKey
+	 * @throws IOException
 	 */
-	public static void unEncryptClassByRSA(String path, String rasPublicKey) {
+	public static void unEncryptClassByRSA(String path, String rasPublicKey)
+			throws IOException {
 		UtilRSA utilRSA = new UtilRSA();
 		utilRSA.setPublicKey(rasPublicKey);
 		List<String> list = UtilFile.getAllFileName(path);
@@ -67,8 +72,10 @@ public class UtilEncryptFile {
 	 * 
 	 * @param path
 	 * @param rsaPrivateKey
+	 * @throws IOException
 	 */
-	public static void encryptClassByAES(String path, String aesKey) {
+	public static void encryptClassByAES(String path, String aesKey)
+			throws IOException {
 		List<String> list = UtilFile.getAllFileName(path);
 		for (String string : list) {
 			byte[] bs = UtilFile.fileToHex(string);
@@ -82,8 +89,10 @@ public class UtilEncryptFile {
 	 * 
 	 * @param path
 	 * @param rasPublicKey
+	 * @throws IOException
 	 */
-	public static void decryptClassByAES(String path, String aesKey) {
+	public static void decryptClassByAES(String path, String aesKey)
+			throws IOException {
 		List<String> list = UtilFile.getAllFileName(path);
 		for (String string : list) {
 			byte[] bs = UtilFile.fileToHex(string);

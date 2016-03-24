@@ -11,45 +11,52 @@ public class CreateClass {
 	// 需要操作的类名，需要自己设定
 	private String ClassName = "WeixinKey";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		CreateClass fuck = new CreateClass();
 		// 创建Service ServiceImpl Vo Controller ,修改Mapper
 		fuck.readMapperFile();
 		fuck.createServiceFile();
 		fuck.createServiceImplFile();
-//		fuck.createControllerFile();
-//		fuck.createVoFile();
+		// fuck.createControllerFile();
+		// fuck.createVoFile();
 		// 创建单独的gridFrame gridFrameController detailFrame detailFrameController
-//		 fuck.createGridFrameFile();
-//		 fuck.createGridFrameControllerFile();
-//		 fuck.createDetailFrameFile();
-//		 fuck.createDetailFrameControllerFile();
+		// fuck.createGridFrameFile();
+		// fuck.createGridFrameControllerFile();
+		// fuck.createDetailFrameFile();
+		// fuck.createDetailFrameControllerFile();
 
 		// 创建frame，包含detailJpanel+controller+gridJpanel+gridJpanelController
-//		fuck.createFrame();
-//		fuck.createDetailJPanelFile();
-//		fuck.createDetailJPanelControllerFile();
-//		fuck.createGridJPanelFile();
-//		fuck.createGridJPanelControllerFile();
+		// fuck.createFrame();
+		// fuck.createDetailJPanelFile();
+		// fuck.createDetailJPanelControllerFile();
+		// fuck.createGridJPanelFile();
+		// fuck.createGridJPanelControllerFile();
 		// 创建noSelectControllerFrame，包含formJpanel+gridJpanel+girdJpanelController
-//		fuck.createNoSelectControllerFrame();
-//		fuck.createFormJpanel();
-//		fuck.createGridJPanelFile();
+		// fuck.createNoSelectControllerFrame();
+		// fuck.createFormJpanel();
+		// fuck.createGridJPanelFile();
 	}
 
 	// 模板根目录
 	private String templatePath = "C:\\Users\\1036225283\\Desktop\\swing\\template\\franchisee\\";
 	private String rootPath = "C:\\Users\\1036225283\\Desktop\\franchisee\\";
-	
+
 	// 生成文件的输出目录
-	private String voOutPath = rootPath+"franchisee\\common\\src\\main\\java\\com\\simonizchina\\franchisee\\vo\\";
-	private String controllerOutPath = rootPath+"franchisee\\server\\src\\main\\java\\com\\simonizchina\\franchisee\\server\\";
-	private String clientOutPath = rootPath+"franchisee\\client\\src\\main\\java\\com\\simonizchina\\franchisee\\client\\";
-	private String serviceOutPath = rootPath+"franchisee\\common\\src\\main\\java\\com\\simonizchina\\franchisee\\service\\";
-	private String modelReadPath = rootPath+"franchisee\\common\\src\\main\\java\\com\\simonizchina\\franchisee\\model\\";
-	private String serviceImplOutPath = rootPath+"franchisee\\service\\src\\main\\java\\com\\simonizchina\\franchisee\\service\\impl\\";
-	private String mapperReadPath = rootPath+"franchisee\\service\\src\\main\\java\\com\\simonizchina\\franchisee\\mapper\\";
+	private String voOutPath = rootPath
+			+ "franchisee\\common\\src\\main\\java\\com\\simonizchina\\franchisee\\vo\\";
+	private String controllerOutPath = rootPath
+			+ "franchisee\\server\\src\\main\\java\\com\\simonizchina\\franchisee\\server\\";
+	private String clientOutPath = rootPath
+			+ "franchisee\\client\\src\\main\\java\\com\\simonizchina\\franchisee\\client\\";
+	private String serviceOutPath = rootPath
+			+ "franchisee\\common\\src\\main\\java\\com\\simonizchina\\franchisee\\service\\";
+	private String modelReadPath = rootPath
+			+ "franchisee\\common\\src\\main\\java\\com\\simonizchina\\franchisee\\model\\";
+	private String serviceImplOutPath = rootPath
+			+ "franchisee\\service\\src\\main\\java\\com\\simonizchina\\franchisee\\service\\impl\\";
+	private String mapperReadPath = rootPath
+			+ "franchisee\\service\\src\\main\\java\\com\\simonizchina\\franchisee\\mapper\\";
 
 	// 模板文件
 	private String serviceTemplate = templatePath + "Service.java";
@@ -155,13 +162,14 @@ public class CreateClass {
 
 	/**
 	 * 第一步，读取mapper文件
+	 * 
+	 * @throws IOException
 	 */
-	public void readMapperFile() {
+	public void readMapperFile() throws IOException {
 		if (!mapperFile.exists()) {
 			throw new RuntimeException("第一步读取Mapper文件就出错了");
 		}
-		mapperContent = UtilFile.fileToString(mapperFile
-				.getAbsolutePath());
+		mapperContent = UtilFile.fileToString(mapperFile.getAbsolutePath());
 		String getAll = "List<" + ClassName + "> getAll();";
 		String getListByMap = "List<" + ClassName
 				+ "> getListByMap(Map<String, Object> map);";
@@ -181,8 +189,7 @@ public class CreateClass {
 			mapperContent = mapperContent + "}";
 		}
 		mapperContent = mapperContent.replace("<ClassName>", ClassName);
-		UtilFile
-				.stringToFile(mapperContent, mapperFile.getAbsolutePath());
+		UtilFile.stringToFile(mapperContent, mapperFile.getAbsolutePath());
 		mapperContent = UtilString.substring(mapperContent, "{", "}");
 		System.out.println("输出截取到的Mapper文件：");
 		System.out.println(mapperContent);
@@ -190,8 +197,10 @@ public class CreateClass {
 
 	/**
 	 * 第二步，创建Service.java文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createServiceFile() {
+	public void createServiceFile() throws IOException {
 		if (serviceFile.exists()) {
 			return;
 		} else {
@@ -214,8 +223,10 @@ public class CreateClass {
 
 	/**
 	 * 第三步，创建ServiceImpl.java文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createServiceImplFile() {
+	public void createServiceImplFile() throws IOException {
 		if (serviceImplFile.exists()) {
 			return;
 		} else {
@@ -226,8 +237,7 @@ public class CreateClass {
 			}
 		}
 		// 读取项目的Service.java文件,而不是模板文件
-		serviceContent = UtilFile.fileToString(serviceFile
-				.getAbsolutePath());
+		serviceContent = UtilFile.fileToString(serviceFile.getAbsolutePath());
 		System.out.println(serviceContent);
 		serviceContent = UtilString.substring(serviceContent, "{", "}");
 		System.out.println("jie qu hou");
@@ -243,8 +253,7 @@ public class CreateClass {
 		String className = UtilString.letterLower(ClassName);
 		stringParamType = strings2[0];
 		stringParamName = strings2[1];
-		serviceImplTemplateContent = UtilFile
-				.fileToString(serviceImplTemplate);
+		serviceImplTemplateContent = UtilFile.fileToString(serviceImplTemplate);
 		serviceImplTemplateContent = serviceImplTemplateContent.replaceAll(
 				"<ClassName>", ClassName);
 		serviceImplTemplateContent = serviceImplTemplateContent.replaceAll(
@@ -261,8 +270,10 @@ public class CreateClass {
 
 	/**
 	 * 创建v o文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createVoFile() {
+	public void createVoFile() throws IOException {
 		if (!modelFile.exists()) {
 			throw new RuntimeException("Model文件没有找到");
 		}
@@ -282,16 +293,17 @@ public class CreateClass {
 				ClassName);
 		voTemplateContent = voTemplateContent.replaceAll("<Content>",
 				modelContent);
-		UtilFile
-				.stringToFile(voTemplateContent, voFile.getAbsolutePath());
+		UtilFile.stringToFile(voTemplateContent, voFile.getAbsolutePath());
 		System.out.println("输出生成的Vo文件：");
 		System.out.println(voTemplateContent);
 	}
 
 	/**
 	 * 创建Controller文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createControllerFile() {
+	public void createControllerFile() throws IOException {
 		if (controllerFile.exists()) {
 			return;
 		} else {
@@ -301,8 +313,7 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		controllerTemplateContent = UtilFile
-				.fileToString(controllerTemplate);
+		controllerTemplateContent = UtilFile.fileToString(controllerTemplate);
 		String className = UtilString.letterLower(ClassName);
 		controllerTemplateContent = controllerTemplateContent.replace(
 				"<ClassName>", ClassName);
@@ -316,8 +327,10 @@ public class CreateClass {
 
 	/**
 	 * 创建gridFrame文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createGridFrameFile() {
+	public void createGridFrameFile() throws IOException {
 		if (gridFrameFile.exists()) {
 			return;
 		} else {
@@ -338,8 +351,10 @@ public class CreateClass {
 
 	/**
 	 * 创建gridFrameController文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createGridFrameControllerFile() {
+	public void createGridFrameControllerFile() throws IOException {
 		if (gridFrameControllerFile.exists()) {
 			return;
 		} else {
@@ -363,8 +378,10 @@ public class CreateClass {
 
 	/**
 	 * 创建DetailFrame文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createDetailFrameFile() {
+	public void createDetailFrameFile() throws IOException {
 		if (detailFrameFile.exists()) {
 			return;
 		} else {
@@ -384,8 +401,10 @@ public class CreateClass {
 
 	/**
 	 * 创建DetailFrameController文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createDetailFrameControllerFile() {
+	public void createDetailFrameControllerFile() throws IOException {
 		if (detailFrameControllerFile.exists()) {
 			return;
 		} else {
@@ -408,8 +427,10 @@ public class CreateClass {
 
 	/**
 	 * 创建GridJPanel文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createGridJPanelFile() {
+	public void createGridJPanelFile() throws IOException {
 		if (gridJPanelFile.exists()) {
 			return;
 		} else {
@@ -432,8 +453,10 @@ public class CreateClass {
 
 	/**
 	 * 创建GridJPanelController文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createGridJPanelControllerFile() {
+	public void createGridJPanelControllerFile() throws IOException {
 		if (gridJPanelControllerFile.exists()) {
 			return;
 		} else {
@@ -456,8 +479,10 @@ public class CreateClass {
 
 	/**
 	 * 创建DetailJPanel文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createDetailJPanelFile() {
+	public void createDetailJPanelFile() throws IOException {
 		if (detailJPanelFile.exists()) {
 			return;
 		} else {
@@ -477,8 +502,10 @@ public class CreateClass {
 
 	/**
 	 * 创建DetailJPanelController文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createDetailJPanelControllerFile() {
+	public void createDetailJPanelControllerFile() throws IOException {
 		if (detailJPanelControllerFile.exists()) {
 			return;
 		} else {
@@ -497,7 +524,7 @@ public class CreateClass {
 	}
 
 	// 创建没有Controller的表单
-	private void createFormJpanel() {
+	private void createFormJpanel() throws IOException {
 		if (formJPanelFile.exists()) {
 			return;
 		} else {
@@ -507,8 +534,7 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String formJPanelTemplateContent = UtilFile
-				.fileToString(formTemplate);
+		String formJPanelTemplateContent = UtilFile.fileToString(formTemplate);
 		formJPanelTemplateContent = formJPanelTemplateContent.replace(
 				"<ClassName>", ClassName);
 		UtilFile.stringToFile(formJPanelTemplateContent,
@@ -516,7 +542,7 @@ public class CreateClass {
 	}
 
 	// 创建只包含formJPanel gridJPanel girdJPanelController
-	private void createNoSelectControllerFrame() {
+	private void createNoSelectControllerFrame() throws IOException {
 		if (frameFile.exists()) {
 			return;
 		} else {
@@ -535,7 +561,7 @@ public class CreateClass {
 	}
 
 	// 创建包含gridJPanel gridJPanelController detailJPanel detailJPanelController
-	private void createFrame() {
+	private void createFrame() throws IOException {
 		if (frameFile.exists()) {
 			return;
 		} else {
@@ -545,12 +571,10 @@ public class CreateClass {
 				e.printStackTrace();
 			}
 		}
-		String frameTemplateContent = UtilFile
-				.fileToString(frameTemplate);
+		String frameTemplateContent = UtilFile.fileToString(frameTemplate);
 		frameTemplateContent = frameTemplateContent.replace("<ClassName>",
 				ClassName);
-		UtilFile.stringToFile(frameTemplateContent,
-				frameFile.getAbsolutePath());
+		UtilFile.stringToFile(frameTemplateContent, frameFile.getAbsolutePath());
 	}
 
 }

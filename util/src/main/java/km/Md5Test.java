@@ -23,7 +23,7 @@ public class Md5Test {
 
 	private static EncrypAES encryp = EncrypAES.getInstance();
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		BufferedReader bufferedReader = new BufferedReader(
 				new InputStreamReader(System.in));
 		System.out.println("请输入需要扫描的目录：");
@@ -42,7 +42,7 @@ public class Md5Test {
 	}
 
 	// 解析准字号文件
-	public static List<String> readFile() {
+	public static List<String> readFile() throws IOException {
 		String string = UtilFile.fileToString(zhunzihaoFile);
 		String[] strings = string.split("\r\n");
 		for (int i = 0; i < strings.length; i++) {
@@ -52,7 +52,7 @@ public class Md5Test {
 	}
 
 	// 创建目录
-	public static void makeDirectory() {
+	public static void makeDirectory() throws IOException {
 		// 第一步：解析准字号文件
 		// 第二步：进行循环，拼接准字号，形成目录
 		for (int i = 0; i < list.size(); i++) {
@@ -100,9 +100,12 @@ public class Md5Test {
 	}
 
 	/**
-	 * 创建文件
+	 * @throws Exception
+	 *             创建文件
+	 * 
+	 * @throws
 	 */
-	public static void makeFile() {
+	public static void makeFile() throws Exception {
 		for (Map.Entry<String, String> entry : map.entrySet()) {
 			String sourceDirectory = entry.getKey();
 			String distDirectory = entry.getValue();
@@ -119,14 +122,9 @@ public class Md5Test {
 					UtilFile.hexToFile(bytes, outFile);
 					System.out.println(">>>拷贝文件：" + outFile);
 				} else {
-					try {
-						String outFile = distDirectory + File.separator + name;
-						encryp.encryptFile(files[i].getAbsolutePath(), outFile);
-						System.out.println("<<<加密文件：" + outFile);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					String outFile = distDirectory + File.separator + name;
+					encryp.encryptFile(files[i].getAbsolutePath(), outFile);
+					System.out.println("<<<加密文件：" + outFile);
 				}
 			}
 		}

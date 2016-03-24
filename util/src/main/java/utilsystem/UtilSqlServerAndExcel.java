@@ -2,6 +2,7 @@ package utilsystem;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -176,7 +177,7 @@ public class UtilSqlServerAndExcel {
 		}
 	}
 
-	public static void createFormCode() {
+	public static void createFormCode() throws IOException {
 		/**
 		 * 将list转换为文件
 		 */
@@ -418,26 +419,26 @@ public class UtilSqlServerAndExcel {
 
 	/**
 	 * 创建lookUpController文件
+	 * 
+	 * @throws IOException
 	 */
-	public static void createLookUpController() {
+	public static void createLookUpController() throws IOException {
 		for (int i = 0; i < list.size(); i++) {
 			Franchisee franchisee = list.get(i);
 			if (franchisee.getState() != null && franchisee.getState() == true) {
 				if (franchisee.getFormType().equals("lookup")) {
 					String className = UtilString.letterUpper(tableName)
 							+ franchisee.getFieldName() + "LookUpController";
-					String template = UtilFile
-							.fileToString(lookupController);
+					String template = UtilFile.fileToString(lookupController);
 					template = template.replace("<ClassName>", className);
-					UtilFile.stringToFile(template, path + className
-							+ ".java");
+					UtilFile.stringToFile(template, path + className + ".java");
 				}
 			}
 		}
 	}
 
 	public static void createGridCode() {
-		
+
 	}
 
 	public static void main(String[] args) throws Exception {

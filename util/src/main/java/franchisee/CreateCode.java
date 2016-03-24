@@ -1,5 +1,6 @@
 package franchisee;
 
+import java.io.IOException;
 import java.rmi.Naming;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,11 @@ public class CreateCode {
 
 	public static void main(String[] args) {
 		CreateCode code = new CreateCode("Provide");
-//		 System.out.println(code.createGridInitCode());
-//		 System.out.println(code.createResourceCode());
+		// System.out.println(code.createGridInitCode());
+		// System.out.println(code.createResourceCode());
 		System.out.println(code.createFormInitCode());
-//		 System.out.println(code.createSelectFormInitCode());
-//		 code.createLookUpController();
+		// System.out.println(code.createSelectFormInitCode());
+		// code.createLookUpController();
 		// System.out.println(code.createLookUpControllerResourceCode());
 	}
 
@@ -243,9 +244,8 @@ public class CreateCode {
 		sb.append("\", false, false, false);");
 	}
 
-	
 	private void getColumn(String controlName, Franchisee franchisee,
-			StringBuffer sb){
+			StringBuffer sb) {
 		sb.append(controlName);
 		sb.append(" ");
 		sb.append(UtilString.letterLower(franchisee.getFieldName()));
@@ -265,6 +265,7 @@ public class CreateCode {
 		sb.append("\", false, false, false);");
 		sb.append("\n");
 	}
+
 	/**
 	 * 生成表格Init
 	 * 
@@ -316,7 +317,6 @@ public class CreateCode {
 				}
 			}
 		}
-
 
 		sb.append("\n");
 		sb.append("//----------------------设置宽度---------------------------");
@@ -437,8 +437,10 @@ public class CreateCode {
 
 	/**
 	 * 创建lookUpController文件
+	 * 
+	 * @throws IOException
 	 */
-	public void createLookUpController() {
+	public void createLookUpController() throws IOException {
 		for (int i = 0; i < list.size(); i++) {
 			Franchisee franchisee = list.get(i);
 			if (franchisee.getNote() != null

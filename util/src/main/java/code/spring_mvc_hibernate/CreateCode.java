@@ -1,5 +1,7 @@
 package code.spring_mvc_hibernate;
 
+import java.io.IOException;
+
 import com.nitian.util.file.UtilFile;
 import com.nitian.util.string.UtilString;
 
@@ -9,7 +11,7 @@ public class CreateCode {
 
 	private String outPath;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		CreateCode code = new CreateCode("MemberRechargeRecord",
 				"F:\\spring\\spring-mvc\\src\\main\\java\\project\\");
 		code.write();
@@ -21,7 +23,7 @@ public class CreateCode {
 		this.outPath = outPath;
 	}
 
-	public void write() {
+	public void write() throws IOException {
 		String daoPath = (CreateCode.class.getResource("").toString() + "template/daoTemplate.tlt")
 				.replace("file:/", "");
 		String servicePath = (CreateCode.class.getResource("").toString() + "template/serviceTemplate.tlt")

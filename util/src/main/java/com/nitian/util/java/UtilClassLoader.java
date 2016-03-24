@@ -1,5 +1,7 @@
 package com.nitian.util.java;
 
+import java.io.IOException;
+
 import com.nitian.util.encrypt.UtilAES;
 import com.nitian.util.file.UtilFile;
 
@@ -12,9 +14,10 @@ public class UtilClassLoader extends ClassLoader {
 	 * @param fileName
 	 * @return
 	 * @throws ClassNotFoundException
+	 * @throws IOException
 	 */
 	public Class<?> fileToClass(String className, String fileName)
-			throws ClassNotFoundException {
+			throws ClassNotFoundException, IOException {
 		// TODO Auto-generated method stub
 		Class<?> ctmp = this.findLoadedClass(className);
 		if (ctmp == null) {
@@ -48,10 +51,11 @@ public class UtilClassLoader extends ClassLoader {
 	 * @param className
 	 * @param fileName
 	 * @return
+	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
 	public Class<?> fileToClassByDecrypt(String className, String fileName,
-			String aseKey) {
+			String aseKey) throws IOException {
 		// TODO Auto-generated method stub
 		Class<?> ctmp = this.findLoadedClass(className);
 		if (ctmp == null) {

@@ -46,7 +46,7 @@ public class Test {
 	}
 
 	// 解析准字号文件
-	public static List<String> readFile() {
+	public static List<String> readFile() throws IOException {
 		String string = UtilFile.fileToString(zhunzihaoFile);
 		String[] strings = string.split("\r\n");
 		for (int i = 0; i < strings.length; i++) {
@@ -56,7 +56,7 @@ public class Test {
 	}
 
 	// 创建目录
-	public static void makeDirectory() {
+	public static void makeDirectory() throws IOException {
 		// 第一步：解析准字号文件
 		// 第二步：进行循环，拼接准字号，形成目录
 		for (int i = 0; i < list.size(); i++) {
@@ -105,8 +105,10 @@ public class Test {
 
 	/**
 	 * 创建文件
+	 * 
+	 * @throws IOException
 	 */
-	public static void makeFile() {
+	public static void makeFile() throws IOException {
 		for (Map.Entry<String, String> entry : map.entrySet()) {
 			String sourceDirectory = entry.getKey();
 			String distDirectory = entry.getValue();

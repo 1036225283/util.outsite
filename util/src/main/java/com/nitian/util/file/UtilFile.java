@@ -70,29 +70,26 @@ public class UtilFile {
 	 * 
 	 * @param fileName
 	 * @return
+	 * @throws IOException
 	 * @throws Exception
 	 */
 	@SuppressWarnings("resource")
-	public static String fileToString(String fileName) {
+	public static String fileToString(String fileName) throws IOException {
 		File file = new File(fileName);
 		FileInputStream fileInputStream;
 		StringBuffer sb = new StringBuffer();
-		try {
-			fileInputStream = new FileInputStream(file);
-			BufferedReader bufferedReader = new BufferedReader(
-					new InputStreamReader(fileInputStream, "utf-8"));
-			String line = null;
-			int index = 0;
-			while ((line = bufferedReader.readLine()) != null) {
-				if (index == 0) {
-					index = index + 1;
-				} else {
-					sb.append("\r\n");
-				}
-				sb.append(line);
+		fileInputStream = new FileInputStream(file);
+		BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(fileInputStream, "utf-8"));
+		String line = null;
+		int index = 0;
+		while ((line = bufferedReader.readLine()) != null) {
+			if (index == 0) {
+				index = index + 1;
+			} else {
+				sb.append("\r\n");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			sb.append(line);
 		}
 		return sb.toString();
 	}
@@ -102,8 +99,9 @@ public class UtilFile {
 	 * 
 	 * @param fileName
 	 * @return
+	 * @throws IOException
 	 */
-	public static String fileToHexString(String fileName) {
+	public static String fileToHexString(String fileName) throws IOException {
 		return UtilStringHex.bytesHexStr(fileToHex(fileName));
 	}
 
@@ -112,20 +110,17 @@ public class UtilFile {
 	 * 
 	 * @param fileName
 	 * @return
+	 * @throws IOException
 	 */
-	public static byte[] fileToHex(String fileName) {
+	public static byte[] fileToHex(String fileName) throws IOException {
 		File file = new File(fileName);
 		FileInputStream fileInputStream;
 		byte[] bs = new byte[(int) (file.length())];
-		try {
-			fileInputStream = new FileInputStream(file);
-			BufferedInputStream bufferedInputStream = new BufferedInputStream(
-					fileInputStream);
-			bufferedInputStream.read(bs);
-			bufferedInputStream.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		fileInputStream = new FileInputStream(file);
+		BufferedInputStream bufferedInputStream = new BufferedInputStream(
+				fileInputStream);
+		bufferedInputStream.read(bs);
+		bufferedInputStream.close();
 		return bs;
 	}
 
@@ -134,27 +129,21 @@ public class UtilFile {
 	 * 
 	 * @param value
 	 * @param fileName
+	 * @throws IOException
 	 * @throws Exception
 	 */
-	public static void stringToFile(String value, String fileName) {
+	public static void stringToFile(String value, String fileName)
+			throws IOException {
 		File file = new File(fileName);
 		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			file.createNewFile();
 		}
 		FileOutputStream fileOutputStream;
-		try {
-			fileOutputStream = new FileOutputStream(file);
-			byte[] b = value.getBytes("utf-8");
-			fileOutputStream.write(b, 0, b.length);
-			fileOutputStream.flush();
-			fileOutputStream.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		fileOutputStream = new FileOutputStream(file);
+		byte[] b = value.getBytes("utf-8");
+		fileOutputStream.write(b, 0, b.length);
+		fileOutputStream.flush();
+		fileOutputStream.close();
 	}
 
 	/**
@@ -162,26 +151,20 @@ public class UtilFile {
 	 * 
 	 * @param value
 	 * @param fileName
+	 * @throws IOException
 	 */
-	public static void stringAppendFile(String value, String fileName) {
+	public static void stringAppendFile(String value, String fileName)
+			throws IOException {
 		File file = new File(fileName);
 		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			file.createNewFile();
 		}
 		FileOutputStream fileOutputStream;
-		try {
-			fileOutputStream = new FileOutputStream(file, true);
-			byte[] b = value.getBytes("utf-8");
-			fileOutputStream.write(b, 0, b.length);
-			fileOutputStream.flush();
-			fileOutputStream.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		fileOutputStream = new FileOutputStream(file, true);
+		byte[] b = value.getBytes("utf-8");
+		fileOutputStream.write(b, 0, b.length);
+		fileOutputStream.flush();
+		fileOutputStream.close();
 	}
 
 	/**
@@ -189,8 +172,10 @@ public class UtilFile {
 	 * 
 	 * @param value
 	 * @param fileName
+	 * @throws IOException
 	 */
-	public static void hexStringToFile(String value, String fileName) {
+	public static void hexStringToFile(String value, String fileName)
+			throws IOException {
 		hexToFile(UtilStringHex.initByte(value), fileName);
 	}
 
@@ -199,25 +184,19 @@ public class UtilFile {
 	 * 
 	 * @param value
 	 * @param fileName
+	 * @throws IOException
 	 */
-	public static void hexToFile(byte[] value, String fileName) {
+	public static void hexToFile(byte[] value, String fileName)
+			throws IOException {
 		File file = new File(fileName);
 		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			file.createNewFile();
 		}
 		FileOutputStream fileOutputStream;
-		try {
-			fileOutputStream = new FileOutputStream(file);
-			fileOutputStream.write(value, 0, value.length);
-			fileOutputStream.flush();
-			fileOutputStream.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		fileOutputStream = new FileOutputStream(file);
+		fileOutputStream.write(value, 0, value.length);
+		fileOutputStream.flush();
+		fileOutputStream.close();
 	}
 
 	/**
