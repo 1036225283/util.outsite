@@ -2,7 +2,6 @@ package km;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
@@ -10,75 +9,75 @@ import java.util.List;
 
 public class ScanDirectoryByLinkedList {
 
-	private static String directory = "";
-	private static String outDirectory = "";
-	private static int total = 0;
-	private static FileOutputStream fileOutputStream;
+	private static Log outLog = new Log("log");
+	private static Log resultLog = new Log("result");
 
-	private static List<String> list = new LinkedList<String>();
-	private static File[] files;
+	private String directory = "";
+	private int total = 0;
+	private int index = 0;
 
-	private static int index = 0;
+	private List<String> list = new LinkedList<String>();
+	private File[] files;
 
 	public static void main(String[] args) throws IOException {
-		test();
-		System.out.println("this is end");
-	}
 
-	public static void appendString(String value) throws IOException {
-		byte[] b;
-		b = value.getBytes("utf-8");
-		fileOutputStream.write(b, 0, b.length);
-		fileOutputStream.flush();
-
-	}
-
-	public static void init() throws IOException {
-		File file = new File(outDirectory + "/xws.json");
-		if (!file.exists()) {
-			file.createNewFile();
+		try {
+			ScanDirectoryByLinkedList byLinkedList = new ScanDirectoryByLinkedList();
+			byLinkedList.test();
+			System.out.println("this is end");
+			outLog.info("\n end -----------------------------------------------");
+		} catch (Exception e) {
+			// TODO: handle exception
+			outLog.info(e.getMessage());
 		}
-		fileOutputStream = new FileOutputStream(file, true);
 
 	}
 
-	public static void test() throws IOException {
+	public void test() throws IOException {
 		BufferedReader bufferedReader = new BufferedReader(
 				new InputStreamReader(System.in));
 		System.out.println("请输入需要扫描的目录：");
 		directory = bufferedReader.readLine();
 		System.out.println("需要扫描的目录为：" + directory);
-		System.out.println("请输入结果存放的目录：");
-		outDirectory = bufferedReader.readLine();
-		System.out.println("存放结果的目录为：" + outDirectory);
 		System.out.println("开始扫描：");
-		init();
 		File file = new File(directory);
 		list.add(file.toString());
 		getAllFileName();
-		appendString("--------------end----------------");
 	}
 
-	private final static void getAllFileName() throws IOException {
+	private final void getAllFileName() throws IOException {
 		while (list.size() != 0) {
+			outLog.info("\ntaotal:" + total);
 			String name = list.remove(list.size() - 1);
+			outLog.info("\nremove:" + name);
 			File file = new File(name);
+			outLog.info("\nlist size : " + list.size());
 			index = index + 1;
-			System.out.println("index: " + index);
-			System.out.println("^^^list size : " + list.size());
+			if (index > 10000) {
+				index = 0;
+				try {
+					Thread.sleep(5000);
+					System.out
+							.println("sleep---------------------------------------------------------");
+					outLog.info("\nsleep-------------------------------------------------------------");
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			if (file.isDirectory()) {
 				directory = file.getAbsolutePath();
-				System.out.println("+++" + file.getAbsolutePath());
-				appendString(file.getAbsolutePath() + "\n");
+				resultLog.info(file.getAbsolutePath() + "\n");
 				files = file.listFiles();
 				String[] fileNames = file.list();
 				if (files == null) {
 					continue;
 				}
 				total = total + 1;
-				System.out.println(total);
 				for (int i = 0; i < fileNames.length; i++) {
-					list.add(directory + File.separator + fileNames[i]);
+					String path = directory + File.separator + fileNames[i];
+					outLog.info("\nadd path:" + path);
+					list.add(path);
 				}
 			}
 		}
