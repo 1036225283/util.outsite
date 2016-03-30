@@ -24,11 +24,14 @@ public class UtilJar {
 		this.jarFile = new JarFile(jarFile);
 	}
 
-	@SuppressWarnings("null")
+	public static void main(String[] args) {
+		// UtilJar jar = new UtilJar("");
+	}
+
 	public byte[] getFileContent(String fileName) throws IOException {
 		JarEntry jarEntry = jarFile.getJarEntry(fileName);
 		byte[] bs = null;
-		if (jarEntry != null || !jarEntry.isDirectory()) {
+		if (jarEntry != null && !jarEntry.isDirectory()) {
 			bs = new byte[(int) jarEntry.getSize()];
 			InputStream inputStream = jarFile.getInputStream(jarEntry);
 			inputStream.read(bs);
@@ -36,7 +39,21 @@ public class UtilJar {
 		} else {
 			return bs;
 		}
+	}
 
+	/**
+	 * 获取输入流
+	 * 
+	 * @param fileName
+	 * @return
+	 * @throws IOException
+	 */
+	public InputStream getInputStream(String fileName) throws IOException {
+		JarEntry jarEntry = jarFile.getJarEntry(fileName);
+		if (jarEntry != null && !jarEntry.isDirectory()) {
+			return jarFile.getInputStream(jarEntry);
+		}
+		return null;
 	}
 
 	/**
