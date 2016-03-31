@@ -1,5 +1,7 @@
 package com.nitian.util.log;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +15,9 @@ public class LogManager {
 
 	private static LogManager logManager = new LogManager();
 
+	private SimpleDateFormat dateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd hh:mm:ss");
+
 	public static LogManager getInstance() {
 		return logManager;
 	}
@@ -23,15 +28,41 @@ public class LogManager {
 
 	private Set<String> typeSet = new HashSet<String>();
 
-	/**
-	 * 根据类型输出日志
-	 * 
-	 * @param type
-	 * @param info
-	 */
 	public void info(String type, String info) {
 		if (typeSet.contains(type)) {
 			System.out.println(info);
+		}
+	}
+
+	public void info(String type, Object object, String info) {
+		if (typeSet.contains(type)) {
+			System.out.println(object.getClass().getName() + ":" + info);
+		}
+	}
+
+	public void dateInfo(String type, Object object, String info) {
+		if (typeSet.contains(type)) {
+			System.out.println(dateFormat.format(new Date()) + ":"
+					+ object.getClass().getName() + ":" + info);
+		}
+	}
+
+	public void info(LogType logType, String info) {
+		if (typeSet.contains(logType.toString())) {
+			System.out.println(info);
+		}
+	}
+
+	public void info(LogType logType, Object object, String info) {
+		if (typeSet.contains(logType.toString())) {
+			System.out.println(object.getClass().getName() + ":" + info);
+		}
+	}
+
+	public void dateInfo(LogType logType, Object object, String info) {
+		if (typeSet.contains(logType.toString())) {
+			System.out.println(dateFormat.format(new Date()) + ":"
+					+ object.getClass().getName() + ":" + info);
 		}
 	}
 
