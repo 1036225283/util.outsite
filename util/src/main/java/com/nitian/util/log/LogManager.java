@@ -9,15 +9,15 @@ import java.util.Set;
  * @author 1036225283
  *
  */
-public class LogManage {
+public class LogManager {
 
-	private static LogManage logManage = new LogManage();
+	private static LogManager logManager = new LogManager();
 
-	public static LogManage getInstance() {
-		return logManage;
+	public static LogManager getInstance() {
+		return logManager;
 	}
 
-	private LogManage() {
+	private LogManager() {
 		// TODO Auto-generated constructor stub
 	}
 
