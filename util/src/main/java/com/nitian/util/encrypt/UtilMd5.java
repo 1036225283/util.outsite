@@ -87,7 +87,7 @@ public class UtilMd5 {
 		byte[] bytes = string.getBytes();
 		byte[] bs = null;
 		try {
-			MessageDigest mdInst = MessageDigest.getInstance("SHA");
+			MessageDigest mdInst = MessageDigest.getInstance("SHA-1");
 			mdInst.update(bytes);
 			bs = mdInst.digest();
 		} catch (NoSuchAlgorithmException e) {
