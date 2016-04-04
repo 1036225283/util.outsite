@@ -6,6 +6,9 @@ public class UtilByte {
 
 	private byte[] value;
 
+	private char[] letter = new char[] { '0', '1', '2', '3', '4', '5', '6',
+			'7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+
 	/**
 	 * 转换为00001111
 	 * 
@@ -41,8 +44,28 @@ public class UtilByte {
 	 * @return
 	 */
 	public String toHex() {
+		StringBuffer sb = new StringBuffer();
+		int index = 0;
+		for (int i = 0; i < value.length; i++) {
+			if (index == 0) {
+				index = index + 1;
+			} else {
+				sb.append("，");
+			}
+			sb.append(toHex(value[i]));
+		}
+		return sb.toString();
+	}
 
-		return null;
+	public String toHex(byte b) {
+		String result = "";
+		byte x = 15;
+		int var = b & x;
+		result = letter[var] + result;
+		b = (byte) (b >> 4);
+		var = b & x;
+		result = letter[var] + result;
+		return result;
 	}
 
 	/**
@@ -70,6 +93,11 @@ public class UtilByte {
 		byte1.setValue(new byte[] { 1, 2, 3, 45, 99, 100, (byte) 256 });
 		System.out.println(byte1.toDec());
 		System.out.println(byte1.toBin());
+		byte b = 1;
+		for (int i = 0; i < 256; i++) {
+			b = (byte) i;
+			System.out.println(byte1.toHex(b));
+		}
 
 	}
 
