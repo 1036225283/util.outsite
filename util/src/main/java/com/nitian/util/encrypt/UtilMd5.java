@@ -56,6 +56,75 @@ public class UtilMd5 {
 	}
 
 	/**
+	 * SHA1
+	 * 
+	 * @param string
+	 * @return
+	 */
+	public static String stringToSHA1(String string) {
+		byte[] bytes = string.getBytes();
+		byte[] bs = null;
+		try {
+			MessageDigest mdInst = MessageDigest.getInstance("SHA1");
+			mdInst.update(bytes);
+			bs = mdInst.digest();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < bs.length; i++) {
+			String shaHex = Integer.toHexString(bs[i] & 0xFF);
+			if (shaHex.length() < 2) {
+				sb.append("0");
+			}
+			sb.append(shaHex);
+		}
+
+		return sb.toString();
+	}
+
+	public static String stringToSHA(String string) {
+		byte[] bytes = string.getBytes();
+		byte[] bs = null;
+		try {
+			MessageDigest mdInst = MessageDigest.getInstance("SHA");
+			mdInst.update(bytes);
+			bs = mdInst.digest();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < bs.length; i++) {
+			String shaHex = Integer.toHexString(bs[i] & 0xFF);
+			if (shaHex.length() < 2) {
+				sb.append("0");
+			}
+			sb.append(shaHex);
+		}
+
+		return sb.toString();
+	}
+
+	/**
+	 * SHA1
+	 * 
+	 * @param string
+	 * @return
+	 */
+	public static byte[] stringToSHA1_(String string) {
+		byte[] bytes = string.getBytes();
+		byte[] bs = null;
+		try {
+			MessageDigest mdInst = MessageDigest.getInstance("SHA-1");
+			mdInst.update(bytes);
+			bs = mdInst.digest();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return bs;
+	}
+
+	/**
 	 * 文件进行md5校检
 	 * 
 	 * @param fileName

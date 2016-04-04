@@ -4,6 +4,75 @@ import com.nitian.util.string.UtilStringHex;
 
 public class UtilByte {
 
+	private byte[] value;
+
+	/**
+	 * 转换为00001111
+	 * 
+	 * @return
+	 */
+	public String toBin() {
+		StringBuffer sb = new StringBuffer();
+		int index = 0;
+		for (int i = 0; i < value.length; i++) {
+			if (index == 0) {
+				index = index + 1;
+			} else {
+				sb.append("，");
+			}
+			sb.append(toBin(value[i]));
+		}
+		return sb.toString();
+	}
+
+	public String toBin(byte b) {
+		String result = "";
+		byte x = 1;
+		for (int i = 0; i < 8; i++) {
+			result = (x & b) + result;
+			b = (byte) (b >> 1);
+		}
+		return result;
+	}
+
+	/**
+	 * 转换为16进制
+	 * 
+	 * @return
+	 */
+	public String toHex() {
+
+		return null;
+	}
+
+	/**
+	 * 转换为十进制
+	 * 
+	 * @return
+	 */
+	public String toDec() {
+		StringBuffer sb = new StringBuffer();
+		int index = 0;
+		for (int i = 0; i < value.length; i++) {
+			int x = value[i];
+			if (index == 0) {
+				index = index + 1;
+			} else {
+				sb.append("，");
+			}
+			sb.append(x);
+		}
+		return sb.toString();
+	}
+
+	public static void main(String[] args) {
+		UtilByte byte1 = new UtilByte();
+		byte1.setValue(new byte[] { 1, 2, 3, 45, 99, 100, (byte) 256 });
+		System.out.println(byte1.toDec());
+		System.out.println(byte1.toBin());
+
+	}
+
 	public static void compare(byte[] a, byte[] b) {
 		byte[] a0 = new byte[1];
 		byte[] b0 = new byte[1];
@@ -60,9 +129,11 @@ public class UtilByte {
 		}
 	}
 
-	public static void main(String[] args) {
-		byte[] a = new byte[5];
-		byte[] b = new byte[4];
-		compare(a, b);
+	public byte[] getValue() {
+		return value;
+	}
+
+	public void setValue(byte[] value) {
+		this.value = value;
 	}
 }
