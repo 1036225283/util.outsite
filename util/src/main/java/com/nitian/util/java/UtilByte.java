@@ -88,6 +88,12 @@ public class UtilByte {
 		return sb.toString();
 	}
 
+	public void copy(byte[] bs) {
+		for (int i = 0; i < value.length; i++) {
+			value[i] = bs[i];
+		}
+	}
+
 	public static void main(String[] args) {
 		UtilByte byte1 = new UtilByte();
 		byte1.setValue(new byte[] { 1, 2, 3, 45, 99, 100, (byte) 256 });
