@@ -8,6 +8,6 @@ package com.nitian.util.log;
  */
 public enum LogType {
 
-	thread, pool, queue, map, info, debug, error, warning, socket
+	thread, pool, queue, map, info, debug, error, warning, socket, time
 
 }

@@ -42,7 +42,7 @@ public class LogManager {
 
 	public void dateInfo(String type, Object object, String info) {
 		if (typeSet.contains(type)) {
-			System.out.println(dateFormat.format(new Date()) + ":"
+			System.out.println(new Date().getTime() + ":"
 					+ object.getClass().getName() + ":" + info);
 		}
 	}
@@ -61,7 +61,7 @@ public class LogManager {
 
 	public void dateInfo(LogType logType, Object object, String info) {
 		if (typeSet.contains(logType.toString())) {
-			System.out.println(dateFormat.format(new Date()) + ":"
+			System.out.println(new Date().getTime() + ":"
 					+ object.getClass().getName() + ":" + info);
 		}
 	}
