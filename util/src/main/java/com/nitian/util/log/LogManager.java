@@ -1,6 +1,5 @@
 package com.nitian.util.log;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,9 +13,6 @@ import java.util.Set;
 public class LogManager {
 
 	private static LogManager logManager = new LogManager();
-
-	private SimpleDateFormat dateFormat = new SimpleDateFormat(
-			"yyyy-MM-dd hh:mm:ss");
 
 	public static LogManager getInstance() {
 		return logManager;
