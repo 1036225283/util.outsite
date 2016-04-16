@@ -6,8 +6,8 @@ public class UtilByte {
 
 	private byte[] value;
 
-	private char[] letter = new char[] { '0', '1', '2', '3', '4', '5', '6',
-			'7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+	private static char[] letter = new char[] { '0', '1', '2', '3', '4', '5',
+			'6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
 	/**
 	 * 转换为00001111
@@ -28,7 +28,7 @@ public class UtilByte {
 		return sb.toString();
 	}
 
-	public String toBin(byte b) {
+	public static String toBin(byte b) {
 		String result = "";
 		byte x = 1;
 		for (int i = 0; i < 8; i++) {
@@ -57,7 +57,7 @@ public class UtilByte {
 		return sb.toString();
 	}
 
-	public String toHex(byte b) {
+	public static String toHex(byte b) {
 		String result = "";
 		byte x = 15;
 		int var = b & x;
@@ -88,6 +88,19 @@ public class UtilByte {
 		return sb.toString();
 	}
 
+	/**
+	 * 获取某个字节的某个位
+	 * 
+	 * @param b
+	 * @param index
+	 * @return
+	 */
+	public static byte getBit(byte b, int index) {
+		byte one = 1;
+		one = (byte) (one << (index - 1));
+		return (byte) ((byte) (b & one) >> (index - 1));
+	}
+
 	public void copy(byte[] bs) {
 		for (int i = 0; i < value.length; i++) {
 			value[i] = bs[i];
@@ -102,7 +115,7 @@ public class UtilByte {
 		byte b = 1;
 		for (int i = 0; i < 256; i++) {
 			b = (byte) i;
-			System.out.println(byte1.toHex(b));
+			System.out.println(UtilByte.toHex(b));
 		}
 
 	}
