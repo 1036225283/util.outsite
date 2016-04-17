@@ -9,12 +9,27 @@ public class UtilByte {
 	private static char[] letter = new char[] { '0', '1', '2', '3', '4', '5',
 			'6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
+	public static void main(String[] args) {
+		// byte[] b = intToBytes(13);
+		// System.out.println(UtilByte);
+
+	}
+
+	public static void testToHex() {
+		byte b = 1;
+		for (int i = 0; i < 256; i++) {
+			b = (byte) i;
+			System.out.println(UtilByte.toHex(b));
+			System.out.println(UtilByte.toBin(b));
+		}
+	}
+
 	/**
-	 * 转换为00001111
+	 * 字节数组[1,2]转换为[00000001,00000010]
 	 * 
 	 * @return
 	 */
-	public String toBin() {
+	public static String toBin(byte[] value) {
 		StringBuffer sb = new StringBuffer();
 		int index = 0;
 		for (int i = 0; i < value.length; i++) {
@@ -28,6 +43,25 @@ public class UtilByte {
 		return sb.toString();
 	}
 
+	/**
+	 * 字节数组[1,2]转换为[00000001,00000010]
+	 * 
+	 * @return
+	 */
+	public static String[] toBinArray(byte[] value) {
+		String[] strings = new String[value.length];
+		for (int i = 0; i < value.length; i++) {
+			strings[i] = toBin(value[i]);
+		}
+		return strings;
+	}
+
+	/**
+	 * 字节2转换为0000 0010
+	 * 
+	 * @param b
+	 * @return
+	 */
 	public static String toBin(byte b) {
 		String result = "";
 		byte x = 1;
@@ -38,12 +72,24 @@ public class UtilByte {
 		return result;
 	}
 
+	public static byte fromBin(String bin) {
+		char[] cs = bin.toCharArray();
+		byte result = 0;
+		for (int i = 0; i < cs.length; i++) {
+			if (i != 0 && i != 1) {
+				throw new RuntimeException("不是标准的二进制字符串");
+			}
+			result = (byte) (result << 1);
+		}
+		return 1;
+	}
+
 	/**
-	 * 转换为16进制
+	 * 字节数组[1,2]转换为16进制[0x1,0x2]
 	 * 
 	 * @return
 	 */
-	public String toHex() {
+	public static String toHex(byte[] value) {
 		StringBuffer sb = new StringBuffer();
 		int index = 0;
 		for (int i = 0; i < value.length; i++) {
@@ -57,6 +103,25 @@ public class UtilByte {
 		return sb.toString();
 	}
 
+	/**
+	 * 字节数组[1,2]转换为16进制[0x1,0x2]
+	 * 
+	 * @return
+	 */
+	public static String[] toHexArray(byte[] value) {
+		String[] strings = new String[value.length];
+		for (int i = 0; i < value.length; i++) {
+			strings[i] = toHex(value[i]);
+		}
+		return strings;
+	}
+
+	/**
+	 * 单个自己[1]转换为16进制[0x1]
+	 * 
+	 * @param b
+	 * @return
+	 */
 	public static String toHex(byte b) {
 		String result = "";
 		byte x = 15;
@@ -69,11 +134,11 @@ public class UtilByte {
 	}
 
 	/**
-	 * 转换为十进制
+	 * 字节数组[12,13]转换为十进制[12,13]
 	 * 
 	 * @return
 	 */
-	public String toDec() {
+	public static String toDec(byte[] value) {
 		StringBuffer sb = new StringBuffer();
 		int index = 0;
 		for (int i = 0; i < value.length; i++) {
@@ -89,7 +154,20 @@ public class UtilByte {
 	}
 
 	/**
-	 * 获取某个字节的某个位
+	 * 字节数组[12,13]转换为十进制[12,13]
+	 * 
+	 * @return
+	 */
+	public static int[] toDecArray(byte[] value) {
+		int[] is = new int[value.length];
+		for (int i = 0; i < value.length; i++) {
+			is[i] = value[i];
+		}
+		return is;
+	}
+
+	/**
+	 * 获取某个字节[00001000]的第4位为1
 	 * 
 	 * @param b
 	 * @param index
@@ -97,29 +175,32 @@ public class UtilByte {
 	 */
 	public static byte getBit(byte b, int index) {
 		byte one = 1;
-		one = (byte) (one << (index - 1));
-		return (byte) ((byte) (b & one) >> (index - 1));
+		// System.out.println("one = " + toBin(one));
+		// System.out.println("old b = " + toBin(b));
+		b = (byte) (b >> (index - 1));
+		// System.out.println("b>>" + index + "=" + toBin(b));
+		b = (byte) (b & one);
+		// System.out.println("b=" + toBin(b));
+		return b;
 	}
 
-	public void copy(byte[] bs) {
+	/**
+	 * 拷贝另外一个字节数组到到this.value[]数组
+	 * 
+	 * @param bs
+	 */
+	public static void copy(byte[] bs, byte[] value) {
 		for (int i = 0; i < value.length; i++) {
 			value[i] = bs[i];
 		}
 	}
 
-	public static void main(String[] args) {
-		UtilByte byte1 = new UtilByte();
-		byte1.setValue(new byte[] { 1, 2, 3, 45, 99, 100, (byte) 256 });
-		System.out.println(byte1.toDec());
-		System.out.println(byte1.toBin());
-		byte b = 1;
-		for (int i = 0; i < 256; i++) {
-			b = (byte) i;
-			System.out.println(UtilByte.toHex(b));
-		}
-
-	}
-
+	/**
+	 * 比较两个字节数组相同和不同的部分
+	 * 
+	 * @param a
+	 * @param b
+	 */
 	public static void compare(byte[] a, byte[] b) {
 		byte[] a0 = new byte[1];
 		byte[] b0 = new byte[1];
