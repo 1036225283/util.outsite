@@ -2,6 +2,17 @@ package com.nitian.util.java;
 
 import com.nitian.util.string.UtilStringHex;
 
+/**
+ * 字节操作api
+ * 
+ * @获取指定字节指定位置的值getByte(byte b,byte index)--<exist>
+ * @设置指定字节指定位置的值setByte(byte b,byte index,byte value)
+ * @设置指定字节指定位置的值为1#setByteOne(byte b,byte index)
+ * @设置指定字节指定位置的值为0#setByteZero(byte b,byte index)
+ * 
+ * @author 1036225283
+ *
+ */
 public class UtilByte {
 
 	private byte[] value;
@@ -12,7 +23,33 @@ public class UtilByte {
 	public static void main(String[] args) {
 		// byte[] b = intToBytes(13);
 		// System.out.println(UtilByte);
+		byte b = 12;
+		System.out.println(toBin(b));
+		b = setByte(b, 7, 1);
+		System.out.println(toBin(b));
+		// test1();
+		// test2();
+		// System.out.println(toBin((byte) 1));
+	}
 
+	/**
+	 * 测试字节循环位移和非循环位移
+	 */
+	public static void test1() {
+		byte b = 1;
+		for (int i = 0; i < 15; i++) {
+			b = (byte) (b >>> 1);
+			System.out.println(toBin(b));
+		}
+	}
+
+	/**
+	 * 测试00000000-11111111的输出
+	 */
+	public static void test2() {
+		for (int i = 0; i < 256; i++) {
+			System.out.println(toBin((byte) i));
+		}
 	}
 
 	public static void testToHex() {
@@ -22,6 +59,48 @@ public class UtilByte {
 			System.out.println(UtilByte.toHex(b));
 			System.out.println(UtilByte.toBin(b));
 		}
+	}
+
+	/**
+	 * @首先，进行构造1或0，并位移
+	 * @然后，与11111111进行或运算
+	 * @最后，与传进来的值进行与运算
+	 * 
+	 * 
+	 * @param b
+	 * @param index
+	 * @param value
+	 * @return
+	 */
+	public static byte setByte(byte b, int index, int value) {
+		/**
+		 * 第一步，首次测试需要改变的位是1还是0
+		 */
+		int testValue = getBit(b, index);
+		/**
+		 * 如果是1，进行0的与运算
+		 */
+		if (testValue == value) {
+			return b;
+		} else if (testValue == 0 && value == 1) {
+			value = value << (index - 1);
+			b = (byte) (b | value);
+			return b;
+		} else if (testValue == 1 && value == 0) {
+			value = value << (index - 1);
+			value = ~value;
+			b = (byte) (b & value);
+			return b;
+		}
+		System.out.println("接受到的value->" + toBin((byte) value));
+		byte full = (byte) 255;// 11111111
+		System.out.println("full->" + toBin((byte) full));
+		value = value << (index);
+		System.out.println("value->" + toBin((byte) value));
+		value = value ^ full;
+		System.out.println("与11111111与运算后的value->" + toBin((byte) value));
+		b = (byte) (b & value);
+		return b;
 	}
 
 	/**
