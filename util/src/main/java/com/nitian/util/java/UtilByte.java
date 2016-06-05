@@ -23,10 +23,13 @@ public class UtilByte {
 	public static void main(String[] args) {
 		// byte[] b = intToBytes(13);
 		// System.out.println(UtilByte);
-		byte b = 12;
-		System.out.println(toBin(b));
-		b = setByte(b, 7, 1);
-		System.out.println(toBin(b));
+		byte b = -30;
+		int duck = b;
+		System.out.println("duck->" + duck);
+		int test = 0;
+		test = test | 0xff & b;
+		System.out.println(test);
+		System.out.println(toBin((byte) 226));
 		// test1();
 		// test2();
 		// System.out.println(toBin((byte) 1));

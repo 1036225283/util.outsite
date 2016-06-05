@@ -40,6 +40,7 @@ public class Log {
 	public Log(String path, String name) {
 		// TODO Auto-generated constructor stub
 		File file = new File(path + File.separator + name + ".log");
+		System.out.println("log file is " + file.getPath());
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
