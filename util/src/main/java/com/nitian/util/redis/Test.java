@@ -7,10 +7,13 @@ import java.util.Map;
 import java.util.Set;
 
 import com.nitian.util.json.UtilJson;
+import com.nitian.util.log.LogManager;
 
 public class Test {
 
-	public static void main(String[] args) {
+	public static LogManager logManager = LogManager.getInstance();
+
+	public static void test() {
 		UtilRedisString.put("testString", "xws");
 		System.out.println(UtilRedisString.get("testString"));
 
@@ -43,5 +46,36 @@ public class Test {
 			// System.out.println(UtilRedisHash.get(it.next()));
 		}
 		// System.out.println("set.size() = " + set.size());
+
+	}
+
+	public static void speed() {
+		logManager.dateInfo("start");
+		for (int i = 0; i < 10000; i++) {
+			UtilRedisString.put("key" + i, "value" + i);
+		}
+		logManager.dateInfo("end");
+		// 887.70125
+	}
+
+	public static void speed2() {
+		logManager.dateInfo("start");
+		for (int i = 0; i < 10000; i++) {
+			UtilRedisString.get("key" + i);
+		}
+		logManager.dateInfo("end");
+	}
+
+	/**
+	 * 
+	1.24212584E8		:			:	start
+	846.98456		:			:	end
+	0.124395		:			:	start
+	727.4825		:			:	end
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		speed();
+		speed2();
 	}
 }
