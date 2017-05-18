@@ -1,0 +1,58 @@
+package project;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+
+import com.simonizchina.franchisee.base.home.BaseDao;
+
+@Repository
+public class #EntityName#Dao extends BaseDao<#EntityName#, Long> {
+
+	public List<#EntityName#> getPage(Integer start, Integer limit,
+			Map<String, Object> map) {
+		StringBuffer hql = new StringBuffer();
+		List<Object> values = new ArrayList<Object>();
+		hql.append("from #EntityName# where 1=1");
+		if (map.containsKey("name")) {
+			hql.append(" and joinsSupName =?");
+			values.add(map.get("name"));
+		}
+		return getPage(start, limit, hql.toString(), values.toArray());
+	}
+
+	public List<#EntityName#> getList(Map<String, Object> map) {
+		StringBuffer hql = new StringBuffer();
+		List<Object> values = new ArrayList<Object>();
+		hql.append("from #EntityName# where 1=1");
+		if (map.containsKey("id")) {
+			hql.append(" and id =?");
+			values.add(map.get("id"));
+		}
+		return getAll(hql.toString(), values.toArray());
+	}
+
+	public #EntityName# get#EntityName#(Map<String, Object> map) {
+		StringBuffer hql = new StringBuffer();
+		List<Object> values = new ArrayList<Object>();
+		hql.append("from #EntityName# where 1=1");
+		if (map.containsKey("id")) {
+			hql.append(" and id =?");
+			values.add(map.get("id"));
+		}
+		return get(hql.toString(), values.toArray());
+	}
+
+	public Long getCount(Map<String, Object> map) {
+		StringBuffer hql = new StringBuffer();
+		List<Object> values = new ArrayList<Object>();
+		hql.append("select count(*) from #EntityName# where 1=1");
+		if (map.containsKey("id")) {
+			hql.append(" and id =?");
+			values.add(map.get("id"));
+		}
+		return getCount(hql.toString(), values.toArray());
+	}
+}
