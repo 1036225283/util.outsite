@@ -1,10 +1,10 @@
 package util;
 
-import java.io.IOException;
-
 import com.nitian.util.encrypt.UtilAES;
 import com.nitian.util.file.UtilFile;
 import com.nitian.util.string.UtilStringHex;
+
+import java.io.IOException;
 
 public class UtilEncryptFile {
 
@@ -18,6 +18,7 @@ public class UtilEncryptFile {
 		String result = UtilEncryptFile.decryptFile(fileName);
 		fileName = fileName + ".old";
 		UtilFile.stringToFile(result, fileName);
+
 
 	}
 
