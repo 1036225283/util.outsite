@@ -1,10 +1,11 @@
 package utilclass;
 
+import _1036225283.com.util.self.file.UtilFile;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nitian.util.file.UtilFile;
 
 /**
  * 获取所有的类
@@ -37,7 +38,6 @@ public class UtilClass {
 	/**
 	 * 获取当前项目下面的所有类
 	 * 
-	 * @param fileNameList
 	 * @return
 	 */
 	public final static List<String> classNameList() {

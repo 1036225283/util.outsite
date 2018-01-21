@@ -1,6 +1,6 @@
 package utiltest;
 
-import com.nitian.util.http.UtilHttpString;
+import _1036225283.com.util.outsite.http.UtilHttpString;
 
 public class UtilHttpStringTest {
 

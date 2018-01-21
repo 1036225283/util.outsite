@@ -1,5 +1,8 @@
 package km;
 
+import _1036225283.com.util.self.encrypt.UtilMd5;
+import _1036225283.com.util.self.file.UtilFile;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -9,8 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.nitian.util.encrypt.UtilMd5;
-import com.nitian.util.file.UtilFile;
 
 public class Test {
 
