@@ -1,9 +1,11 @@
 package util;
 
 
-import _1036225283.com.util.self.encrypt.UtilAES;
-import _1036225283.com.util.self.file.UtilFile;
-import _1036225283.com.util.self.string.UtilStringHex;
+
+
+import com._1036225283.util.self.encrypt.UtilAES;
+import com._1036225283.util.self.file.UtilFile;
+import com._1036225283.util.self.string.UtilStringHex;
 
 import java.io.IOException;
 

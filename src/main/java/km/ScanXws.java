@@ -1,6 +1,7 @@
 package km;
 
-import _1036225283.com.util.self.file.UtilFile;
+
+import com._1036225283.util.self.file.UtilFile;
 
 import java.io.File;
 import java.io.IOException;

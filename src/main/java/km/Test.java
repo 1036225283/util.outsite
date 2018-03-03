@@ -1,7 +1,9 @@
 package km;
 
-import _1036225283.com.util.self.encrypt.UtilMd5;
-import _1036225283.com.util.self.file.UtilFile;
+
+
+import com._1036225283.util.self.encrypt.UtilMd5;
+import com._1036225283.util.self.file.UtilFile;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 
 public class Test {
